@@ -5,12 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userLoggedIn: false,
+    username: 'admin',
+    userlogin: 'admin'
 
   },
   mutations: {
-
-  },
+    userSubmitSuccessful (state) {
+      state.userLoggedIn = true }
+    }
+    ,
   actions: {
 
   }
 })
+
+
