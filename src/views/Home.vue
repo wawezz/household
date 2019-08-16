@@ -7,10 +7,10 @@
 
 <script>
 
-import authGuard from '../guards/auth.guard'
+//import authGuard from '../guards/auth.guard'
 
 export default {
-  beforeRouteEnter: authGuard,
+//  beforeRouteEnter: authGuard,
   name: 'home',
 }
 
