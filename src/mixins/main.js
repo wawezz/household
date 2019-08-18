@@ -1,26 +1,30 @@
-
-import AuthService from "../services/AuthServise";
+import AuthService from "../services/AuthService";
 
 export const main = {
-    data() {
-    },
+    data() {},
 
     created() {
         AuthService.init();
     },
+    computed: {
+        curPage() {
+            let page = 1;
+            if (this.$route.params.page) page = this.$route.params.page;
+
+            return parseInt(page);
+        }
+    },
     methods: {
         validateField: function (value) {
-            let regularValidate = /^(|[a-z\s]+|[A-Z\s])$/iu.test(value)
+            // let regularValidate = /^(|[a-z\s]+|[A-Z\s])$/iu.test(value)
             if (value.length < 5) {
                 return 'invalidLength (min 5)'
             }
-            if (!regularValidate) {
-                return 'incorrect symbols'
-            }
-            if (regularValidate && (value.length >= 5)) {
-                return 'Correct'
-            }
+            // if (!regularValidate) {
+            //     return 'incorrect symbols'
+            // }
 
-        },
+            return 'Correct'
+        }
     }
 }

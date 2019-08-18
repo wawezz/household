@@ -1,20 +1,18 @@
 <template>
-    <div class="login">
-        <h2>Please log in...</h2>
-        <Userlogin/>
-    </div>
+  <div class="login">
+    <h2>Please log in...</h2>
+    <LoginForm />
+  </div>
 </template>
 
 <script>
+  import { LoginForm } from "@/components";
 
-    import Userlogin from '@/components/UserLogin.vue'
-
-    export default {
-        name: "login",
-        components: { Userlogin }
-    }
+  export default {
+    name: "login",
+    components: { LoginForm }
+  };
 </script>
 
 <style scoped>
-
 </style>
