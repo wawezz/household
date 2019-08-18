@@ -152,7 +152,7 @@ export const houses = {
                     modifiedDate: "date 4"
                 }
             ];
-            this.housesOptions.limit
+
             const start = this.housesOptions.limit * (this.curPage - 1);
             const end = start + this.housesOptions.limit;
             this.housesTotalCount = parseInt(this.houses.length);
