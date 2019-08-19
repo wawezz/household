@@ -131,14 +131,14 @@
 			</span>
                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
             </h3>
-            <ng-container *ngIf="item.items?.length">
+            <div v-if="item.items?.length">
                 <ul class="kt-menu__inner">
-                    <ng-container *ngFor="let child of item.items">
-                        <ng-container [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
-                        </ng-container>
-                    </ng-container>
+                    <div v-for="child in item.items">
+                        <div [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+                        </div>
+                    </div>
                 </ul>
-            </ng-container>
+            </div>
         </li>
     </ng-template>
 
