@@ -26,7 +26,7 @@
 	<!--end: User bar -->
 </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 :host {
 	::ng-deep {
 		// override default version style
