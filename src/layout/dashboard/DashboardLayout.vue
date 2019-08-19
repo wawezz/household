@@ -1,14 +1,29 @@
 <template>
-  <div class="wrapper">
-    <div>
-      <router-link to="/dashboard">Dashboard</router-link>|
-      <router-link to="/houses/1">Houses</router-link>|
-      <a href="#" @click.prevent="logout">Logout</a>
-    </div>
-    <div class="main-panel">
-      <dashboard-content></dashboard-content>
+  <div id="base">
+    <mobile-header></mobile-header>
 
-      <content-footer></content-footer>
+    <div class="kt-grid kt-grid--hor kt-grid--root">
+      <!-- begin::Body -->
+      <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+        <div
+          class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper"
+          id="kt_wrapper"
+        >
+          <!-- begin:: Header -->
+          <dashboard-header></dashboard-header>
+          <!-- end:: Header -->
+
+          <!-- begin:: Content -->
+          <dashboard-content></dashboard-content>
+
+          <content-footer></content-footer>
+        </div>
+      </div>
+      <!-- end:: Body -->
+
+      <!--<kt-quick-panel></kt-quick-panel>
+      <kt-scroll-top></kt-scroll-top>
+      <kt-sticky-toolbar></kt-sticky-toolbar>-->
     </div>
   </div>
 </template>
@@ -16,12 +31,16 @@
 </style>
 <script>
   import AuthService from "../../services/AuthService";
-  import ContentFooter from "./ContentFooter.vue";
-  import DashboardContent from "./Content.vue";
+  import MobileHeader from "./MobileHeader";
+  import ContentFooter from "./ContentFooter";
+  import DashboardContent from "./Content";
+  import DashboardHeader from "./Header";
   export default {
     components: {
       ContentFooter,
-      DashboardContent
+      MobileHeader,
+      DashboardContent,
+      DashboardHeader
     },
     methods: {
       logout() {
