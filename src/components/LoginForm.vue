@@ -20,7 +20,7 @@
             <mat-form-field>
               <mat-label>Login: {{errors.username}}</mat-label>
               <br>
-              <input type="text" placeholder="login" v-model="data.username" formControlName="password" autocomplete="off"/>
+              <input type="text" placeholder="login" v-model="data.username"/>
             </mat-form-field>
           </div>
           <div class="form-group">
