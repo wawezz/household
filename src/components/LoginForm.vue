@@ -1,89 +1,44 @@
 <template>
-  <div class="user">
-    <div class="kt-login__head">
-      <span class="kt-login__signup-label">Don't have an account yet?</span>&nbsp;&nbsp;
-      <!--<a href="javascript:;" routerLink="/auth/register" class="kt-link kt-login__signup-link">{{ 'AUTH.GENERAL.SIGNUP_BUTTON' | translate }}</a>-->
-    </div>
-
-    <div class="kt-login__body">
-      <!--begin::Signin-->
-      <div class="kt-login__form">
-        <div class="kt-login__title">
-          <h3>Sign In</h3>
-        </div>
-
-        <!--<kt-auth-notice></kt-auth-notice>-->
-
-        <!--begin::Form-->
-        <form class="kt-form" autocomplete="off">
-          <div class="form-group">
-            <mat-form-field>
-              <mat-label>Login: {{errors.username}}</mat-label>
-              <br>
-              <input type="text" placeholder="login" v-model="data.username"/>
-            </mat-form-field>
-          </div>
-          <div class="form-group">
-            <mat-form-field>
-              <mat-label>Password: {{errors.password}}</mat-label>
-              <br>
-              <input type="text" placeholder="password" v-model="data.password"/>
-            </mat-form-field>
-          </div>
-          <!--begin::Action-->
-          <div class="kt-login__actions">
-            <button @click="submitForm"
-                    class="kt-spinner
-                    kt-spinner--right kt-spinner--md btn btn-primary btn-elevate kt-login__btn-primary"
-                    id="kt_login_signin_submit">
-                    Submit
-                    </button>
-          </div>
-          <!--end::Action-->
-        </form>
-        <!--end::Form-->
-
-        <!--begin::Divider-->
-        <div class="kt-login__divider">
-          <div class="kt-divider">
-            <span></span>
-            <span>OR</span>
-            <span></span>
-          </div>
-        </div>
-        <!--end::Divider-->
-
-        <!--begin::Options-->
-        <div class="kt-login__options">
-          <a href="https://www.facebook.com/keenthemes/" target="_blank" class="btn btn-primary kt-btn">
-            <i class="fab fa-facebook-f"></i>
-            Facebook
-          </a>
-
-          <a href="https://twitter.com/keenthemes/" target="_blank" class="btn btn-info kt-btn">
-            <i class="fab fa-twitter"></i>
-            Twitter
-          </a>
-
-          <a href="javascript:;" class="btn btn-danger kt-btn">
-            <i class="fab fa-google"></i>
-            Google
-          </a>
-        </div>
-        <!--end::Options-->
+  <div class="kt-login__body">
+    <!--begin::Signin-->
+    <div class="kt-login__form">
+      <div class="kt-login__title">
+        <h3>Sign In</h3>
       </div>
-      <!--end::Signin-->
-    </div>
 
-<!--Наша верстка-->
-    <!--<h2>Login: {{errors.username}}</h2>-->
-    <!--<input type="text" placeholder="login" v-model="data.username" />-->
-    <!--<br />-->
-    <!--<h2>Password: {{errors.password}}</h2>-->
-    <!--<input type="text" placeholder="password" v-model="data.password" />-->
-    <!--<br />-->
-    <!--<br />-->
-    <!--<button @click="submitForm">Submit</button>-->
+      <div v-if="errors.username" class="alert alert-danger" role="alert">
+        <div class="alert-text">{{errors.username}}</div>
+      </div>
+
+      <div v-if="errors.password" class="alert alert-danger" role="alert">
+        <div class="alert-text">{{errors.password}}</div>
+      </div>
+
+      <!--begin::Form-->
+      <form class="kt-form" autocomplete="off">
+        <div class="form-group">
+          <div>
+            <input class="form-control" type="text" placeholder="login" v-model="data.username" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div>
+            <input class="form-control" type="text" placeholder="password" v-model="data.password" />
+          </div>
+        </div>
+        <!--begin::Action-->
+        <div class="kt-login__actions">
+          <button
+            @click="submitForm"
+            class="kt-spinner kt-spinner--right kt-spinner--md btn btn-primary btn-elevate kt-login__btn-primary"
+            id="kt_login_signin_submit"
+          >Submit</button>
+        </div>
+        <!--end::Action-->
+      </form>
+      <!--end::Form-->
+    </div>
+    <!--end::Signin-->
   </div>
 </template>
 
@@ -147,12 +102,14 @@
         this.$store.commit("SET_USER", this.$store.state.testUser.data);
         this.$store.commit("CLEAR_AUTH_FORM_DATA");
 
-        this.$router.push({ path: "/" });
+        this.$router.push({
+          path: "/"
+        });
       }
     },
     mixins: [main]
   };
 </script>
 
-<style scoped>
+<style>
 </style>
