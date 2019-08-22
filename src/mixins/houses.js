@@ -2,7 +2,7 @@ export const houses = {
     data() {
         return {
             housesOptions: {
-                limit: 2
+                limit: 5
             },
             houses: [],
             housesLoading: false,

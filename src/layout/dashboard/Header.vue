@@ -11,21 +11,22 @@
       </div>
     </div>
     <div class="kt-header__bottom">
-      <div class="kt-container kt-container--fluid">
         <!-- begin: Header Menu -->
-        <!--<kt-menu-horizontal *ngIf="menuHeaderDisplay"></kt-menu-horizontal>-->
+        <menu-horizontal></menu-horizontal>
+<!--        <kt-menu-horizontal *ngIf="menuHeaderDisplay"></kt-menu-horizontal>-->
         <!-- end: Header Menu -->
-      </div>
     </div>
   </div>
 </template>
 <script>
   import Brand from "./Brand";
   import Topbar from "./Topbar";
+  import MenuHorizontal from "./MenuHorizontal";
   export default {
     components: {
       Brand,
-      Topbar
+      Topbar,
+      MenuHorizontal
     }
   };
 </script>

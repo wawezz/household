@@ -73,6 +73,9 @@
     created() {
       this.getHouses();
     },
+    mounted() {
+      this.$store.dispatch('getHousesInfo')
+    },
     mixins: [main, houses]
   };
 </script>

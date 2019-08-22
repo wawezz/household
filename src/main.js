@@ -4,6 +4,7 @@ import RouterPrefetch from 'vue-router-prefetch'
 import Vuex from "vuex";
 import App from './App.vue'
 import Metronic from "./plugins/metronic";
+import axios from "axios";
 
 // TIP: change to import router from "./router/starterRouter"; to start with a clean layout
 import router from "./router/index";
@@ -14,6 +15,7 @@ Vue.use(Metronic);
 Vue.use(VueRouter);
 Vue.use(RouterPrefetch);
 Vue.use(Vuex);
+Vue.use(axios);
 
 /* eslint-disable no-new */
 
