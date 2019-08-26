@@ -1,5 +1,4 @@
 import createPersistedState from "vuex-persistedstate";
-import axios from "axios";
 
 export const plugins = [
   createPersistedState(),
@@ -22,19 +21,9 @@ export const state = {
     username: "",
     password: ""
   },
-  homes: []
 };
 
 export const actions = {
-  getHousesInfo () {
-     axios
-         .get('http://cors-anywhere.herokuapp.com/newsarmenia.am/mockData.php')
-         .then(data => {
-            console.log("data:", JSON.parse(data))
-         })
-         .catch(error => {console.log(error)})
-
-  }
 }
 
 

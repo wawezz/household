@@ -9,10 +9,7 @@
               <div class="kt-footer__section">
                 <h3 class="kt-footer__title">About</h3>
                 <div class="kt-footer__content">
-                  Whatever method you chosse,these nine will
-                  make you re-think theway you craft healines
-                  Why? Because they all have points in that are
-                  worth from a point of view.
+                  Some text we need
                 </div>
               </div>
             </div>
@@ -22,14 +19,7 @@
                 <div class="kt-footer__content">
                   <div class="kt-footer__nav">
                     <div class="kt-footer__nav-section">
-                      <a href="#">General Reports</a>
-                      <a href="#">Dashboart Widgets</a>
-                      <a href="#">Custom Pages</a>
-                    </div>
-                    <div class="kt-footer__nav-section">
-                      <a href="#">User Setting</a>
-                      <a href="#">Custom Pages</a>
-                      <a href="#">Intranet Settings</a>
+                      <router-link to="/houses/1">Houses</router-link>
                     </div>
                   </div>
                 </div>
@@ -66,8 +56,6 @@
               </div>
             </div>
             <div class="kt-footer__menu">
-              <a href="http://keenthemes.com/metronic" target="_blank">Purchase Lisence</a>
-              <a href="http://keenthemes.com/metronic" target="_blank">Team</a>
               <a href="http://keenthemes.com/metronic" target="_blank">Contact</a>
             </div>
           </div>

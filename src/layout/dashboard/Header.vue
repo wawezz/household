@@ -13,7 +13,6 @@
     <div class="kt-header__bottom">
         <!-- begin: Header Menu -->
         <menu-horizontal></menu-horizontal>
-<!--        <kt-menu-horizontal *ngIf="menuHeaderDisplay"></kt-menu-horizontal>-->
         <!-- end: Header Menu -->
     </div>
   </div>
