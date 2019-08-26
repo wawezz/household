@@ -146,24 +146,19 @@
     components: {
       Pagination
     },
-    // created() {
-    //   this.getHouses();
-    // },
+
     mounted() {
       this.getHouses();
-
-
-     // this.getHousesInfo();
-
-
     },
+
     beforeUpdate () {
-      console.log("pageDisplaySize:",this.pageDisplaySize);
+      console.log("pageDisplaySize:", this.pageDisplaySize);
       this.housesOptions.limit = this.pageDisplaySize;
-      this.changedHouses = this.houses.slice();
-      console.log('changedHouses:',this.changedHouses);
-      console.log('Houses:',this.houses);
+      this.changedHouses = [...this.houses];
+      console.log('changedHouses:', this.changedHouses);
+      console.log('Houses:', this.houses);
     },
+
 
     mixins: [main, houses]
   };
