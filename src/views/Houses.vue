@@ -37,7 +37,7 @@
               <span>{{item.typeofHouse}}</span>
             </td>
             <td>
-                <select class="houseTable" v-model="changedHouses[index].numberOfCorners">
+                <select class="houseTable" v-model="houses[index].numberOfCorners">
                   <option disabled>{{item.numberOfCorners}}</option>
                   <option>4</option>
                   <option>6</option>
@@ -46,7 +46,7 @@
                 </select>
              </td>
             <td>
-                <select class="houseTable" v-model="changedHouses[index].qualityGroup">
+                <select class="houseTable" v-model="houses[index].qualityGroup">
                   <option disabled>{{item.qualityGroup}}</option>
                   <option>1</option>
                   <option>1.5</option>
@@ -62,7 +62,7 @@
                  </select>
             </td>
             <td>
-                <select class="houseTable" v-model="changedHouses[index].areaGroup">
+                <select class="houseTable" v-model="houses[index].areaGroup">
                   <option disabled>{{item.areaGroup}}</option>
                   <option>700</option>
                   <option>800</option>
@@ -96,7 +96,7 @@
                 type="text"
                 size="6"
                 class="houseTable"
-                v-model="changedHouses[index].costPerSquareFoot"
+                v-model="houses[index].costPerSquareFoot"
                 :placeholder = [[item.costPerSquareFoot]]
               >
             </td>
@@ -122,7 +122,7 @@
     </div>
 
     <div>
-      <base-button>Accept changes</base-button>
+      <base-button @click="acceptChanges()">Accept changes</base-button>
     </div>
 
     </div>
@@ -150,15 +150,6 @@
     mounted() {
       this.getHouses();
     },
-
-    beforeUpdate () {
-      console.log("pageDisplaySize:", this.pageDisplaySize);
-      this.housesOptions.limit = this.pageDisplaySize;
-      this.changedHouses = [...this.houses];
-      console.log('changedHouses:', this.changedHouses);
-      console.log('Houses:', this.houses);
-    },
-
 
     mixins: [main, houses]
   };
