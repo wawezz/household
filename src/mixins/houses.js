@@ -5,7 +5,7 @@ export const houses = {
     data() {
         return {
             housesOptions: {
-                limit: 5
+                limit: 8
             },
             houses: [],
             housesLoading: false,
@@ -48,12 +48,18 @@ export const houses = {
             console.log('actualDate',actualDate);
             let changedHouses = [];
             let wasHousesChanged = false; //<-- эту штуку добавил чтобы отслеживать нажатие на клик, если изменений реально нет
+
             for(let i=0; i<this.houses.length; i++) {
                 if(Object.keys(updatedDiff(this.houses[i],this.originHouses[i])).length !== 0) {
                     changedHouses.push(this.houses[i]);
+                    wasHousesChanged = true;
+                }
+            }
+            // ++ actual user && actual date
+            if(changedHouses.length !==0) {
+                for(let i=0; i<changedHouses.length; i++) {
                     changedHouses[i].modifiedBy  = this.$store.state.testUser.username;
                     changedHouses[i].modifiedDate  = actualDate;
-                    wasHousesChanged = true;
                 }
             }
 
