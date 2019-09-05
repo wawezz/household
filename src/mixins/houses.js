@@ -1,8 +1,11 @@
+import axios from "axios";
+import { updatedDiff } from 'deep-object-diff';
+
 export const houses = {
     data() {
         return {
             housesOptions: {
-                limit: 2
+                limit: 8
             },
             houses: [],
             housesLoading: false,
@@ -15,149 +18,53 @@ export const houses = {
             housesResponse: {
                 timeoutID: null,
                 active: false
-            }
+            },
+            originHouses: [],
         }
     },
-    methods: {
-        getHouses() {
-            this.housesLoading = true;
-            this.houses = [{
-                    number: 1,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 10,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 1",
-                    modifiedDate: "date 1"
-                },
-                {
-                    number: 2,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 10,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 2",
-                    modifiedDate: "date 2"
-                },
-                {
-                    number: 3,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 10,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 3",
-                    modifiedDate: "date 3"
-                },
-                {
-                    number: 4,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 5,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 6,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 7,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 8,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 9,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 10,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 11,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 12,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                },
-                {
-                    number: 13,
-                    typeofHouse: "Single family",
-                    numberOfCorners: 8,
-                    qualityGroup: 1,
-                    areaGroup: 1000,
-                    costPerSquareFoot: 1000,
-                    modifiedBy: "user 4",
-                    modifiedDate: "date 4"
-                }
-            ];
 
-            const start = this.housesOptions.limit * (this.curPage - 1);
-            const end = start + this.housesOptions.limit;
-            this.housesTotalCount = parseInt(this.houses.length);
-            this.houses = this.houses.slice(start, end);
-            this.housesLoading = false;
+    methods: {
+        getHouses () {
+            this.housesLoading = true;
+            axios
+                .get('http://cors-anywhere.herokuapp.com/newsarmenia.am/mockData.php')
+                .then(obj => {
+                    this.houses = obj.data;
+                    this.originHouses = JSON.parse(JSON.stringify(obj.data));
+                    const start = this.housesOptions.limit * (this.curPage - 1);
+                    const end = start + this.housesOptions.limit;
+                    this.housesTotalCount = parseInt(this.houses.length);
+                    this.houses = this.houses.slice(start, end);
+                    this.originHouses = this.originHouses.slice(start, end);
+                    this.housesLoading = false;
+                })
+                .catch(error => {console.log(error)})
+        },
+
+        acceptChanges () {
+            const currentDate = new Date();
+            const formatter = new Intl.DateTimeFormat("ru");
+            const actualDate = formatter.format(currentDate);
+            console.log('actualDate',actualDate);
+            let changedHouses = [];
+            let wasHousesChanged = false; //<-- эту штуку добавил чтобы отслеживать нажатие на клик, если изменений реально нет
+
+            for(let i=0; i<this.houses.length; i++) {
+                if(Object.keys(updatedDiff(this.houses[i],this.originHouses[i])).length !== 0) {
+                    changedHouses.push(this.houses[i]);
+                    wasHousesChanged = true;
+                }
+            }
+            // ++ actual user && actual date
+            if(changedHouses.length !==0) {
+                for(let i=0; i<changedHouses.length; i++) {
+                    changedHouses[i].modifiedBy  = this.$store.state.testUser.username;
+                    changedHouses[i].modifiedDate  = actualDate;
+                }
+            }
+
+            console.log('results', changedHouses, wasHousesChanged);
+
         }
     }
 }

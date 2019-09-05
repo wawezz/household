@@ -24,13 +24,12 @@
       <!--<kt-quick-panel></kt-quick-panel>
       <kt-scroll-top></kt-scroll-top>
       <kt-sticky-toolbar></kt-sticky-toolbar>-->
+
     </div>
   </div>
 </template>
-<style lang="scss">
-</style>
+
 <script>
-  import AuthService from "../../services/AuthService";
   import MobileHeader from "./MobileHeader";
   import ContentFooter from "./ContentFooter";
   import DashboardContent from "./Content";
@@ -41,13 +40,9 @@
       MobileHeader,
       DashboardContent,
       DashboardHeader
-    },
-    methods: {
-      logout() {
-        AuthService.removeUser();
-        this.$store.commit("CLEAR_USER");
-        this.$router.push({ path: "/login" });
-      }
     }
   };
 </script>
+
+<style lang="scss">
+</style>
