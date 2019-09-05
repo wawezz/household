@@ -131,7 +131,6 @@
 
 <script>
   import { Pagination } from "@/components";
-  import { BaseButton } from "@/components";
   import { main } from "./../mixins/main";
   import { houses } from "./../mixins/houses";
   import authGuard from "./../guards/auth.guard";

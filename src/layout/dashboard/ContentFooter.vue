@@ -1,16 +1,14 @@
 <template>
   <footer class="footer">
-    <br>
-    <div class="kt-footer  kt-footer--extended  kt-grid__item" id="kt_footer">
+    <br />
+    <div class="kt-footer kt-footer--extended kt-grid__item" id="kt_footer">
       <div class="kt-footer__top">
-        <div class="kt-container  kt-container--fluid ">
+        <div class="kt-container kt-container--fluid">
           <div class="row">
             <div class="col-lg-4">
               <div class="kt-footer__section">
                 <h3 class="kt-footer__title">About</h3>
-                <div class="kt-footer__content">
-                  Some text we need
-                </div>
+                <div class="kt-footer__content">Some text we need</div>
               </div>
             </div>
             <div class="col-lg-4">
@@ -29,9 +27,9 @@
               <div class="kt-footer__section">
                 <h3 class="kt-footer__title">Get In Touch</h3>
                 <div class="kt-footer__content">
-                  <form action="" class="kt-footer__subscribe">
+                  <form action class="kt-footer__subscribe">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Enter Your Email">
+                      <input type="text" class="form-control" placeholder="Enter Your Email" />
                       <div class="input-group-append">
                         <button class="btn btn-brand" type="button">Join</button>
                       </div>
@@ -44,19 +42,19 @@
         </div>
       </div>
       <div class="kt-footer__bottom">
-        <div class="kt-container  kt-container--fluid ">
+        <div class="kt-container kt-container--fluid">
           <div class="kt-footer__wrapper">
             <div class="kt-footer__logo">
               <a href="demo2/index.html">
-                <img alt="Logo" src="../../assets/media/logos/logo-2-sm.png">
+                <img alt="Logo" src="../../assets/media/logos/logo-2-sm.png" />
               </a>
               <div class="kt-footer__copyright">
                 © {{year}}
-                <a href="http://keenthemes.com/metronic" target="_blank">Household</a>
+                <router-link to="/dashboard">Household</router-link>
               </div>
             </div>
             <div class="kt-footer__menu">
-              <a href="http://keenthemes.com/metronic" target="_blank">Contact</a>
+              <a href="#">Contact</a>
             </div>
           </div>
         </div>
