@@ -3,15 +3,20 @@
     <div v-if="this.housesLoading">Loading information. Please wait... </div>
 
     <div v-else-if="!this.housesLoading">
+
     <div>
       <p>Number of displaying pages:
-      <select class="houseTable" v-model="pageDisplaySize">
-        <option>5</option>
-        <option>10</option>
-        <option>15</option>
-        <option>20</option>
-      </select>
+        <select class="houseTable" v-model="pageDisplaySize">
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+          <option>20</option>
+        </select>
+        <span v-if="responseSuccessful" class = "respSuccessfull">
+              New data accepted succesfully
+        </span>
       </p>
+
     </div>
 
     <div class="table">
@@ -19,7 +24,6 @@
         <thead>
           <tr>
             <th>House</th>
-            <th>Type of House</th>
             <th>Number of corners</th>
             <th>Quality Group</th>
             <th>Area Group</th>
@@ -28,17 +32,14 @@
             <th>Modified Date</th>
           </tr>
         </thead>
-        <tbody v-for="(item, index) in this.houses" :key="item.number">
+        <tbody v-for="(item, index) in this.houses" :key="item.id">
           <tr>
             <td>
-              <span>{{item.number}}</span>
+              <span>{{item.id}}</span>
             </td>
             <td>
-              <span>{{item.typeofHouse}}</span>
-            </td>
-            <td>
-                <select class="houseTable" v-model="houses[index].numberOfCorners">
-                  <option disabled>{{item.numberOfCorners}}</option>
+                <select class="houseTable" v-model="houses[index].NumberOfCorners">
+                  <option disabled>{{item.NumberOfCorners}}</option>
                   <option>4</option>
                   <option>6</option>
                   <option>8</option>
@@ -46,7 +47,7 @@
                 </select>
              </td>
             <td>
-                <select class="houseTable" v-model="houses[index].qualityGroup">
+                <select class="houseTable" v-model="houses[index].QualityGroup">
                   <option disabled>{{item.qualityGroup}}</option>
                   <option>1</option>
                   <option>1.5</option>
@@ -62,8 +63,8 @@
                  </select>
             </td>
             <td>
-                <select class="houseTable" v-model="houses[index].areaGroup">
-                  <option disabled>{{item.areaGroup}}</option>
+                <select class="houseTable" v-model="houses[index].AreaGroup">
+                  <option disabled>{{item.AreaGroup}}</option>
                   <option>700</option>
                   <option>800</option>
                   <option>900</option>
@@ -96,15 +97,15 @@
                 type="text"
                 size="6"
                 class="houseTable"
-                v-model="houses[index].costPerSquareFoot"
-                :placeholder = [[item.costPerSquareFoot]]
+                v-model="houses[index].CostPerSquareFoot"
+                :placeholder = [[item.CostPerSquareFoot]]
               >
             </td>
             <td>
-              <span>{{item.modifiedBy}}</span>
+              <span>{{item.ModifiedBy}}</span>
             </td>
             <td>
-              <span>{{item.modifiedDate}}</span>
+              <span>{{item.ModifiedDate}}</span>
             </td>
 
           </tr>
@@ -159,5 +160,9 @@
   .houseTable {
     margin-left: 8px;
 }
+  .respSuccessfull {
+    margin-left: 20px;
+    color: green;
+  }
 
 </style>

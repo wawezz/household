@@ -10,7 +10,6 @@ export const main = {
         curPage() {
             let page = 1;
             if (this.$route.params.page) page = this.$route.params.page;
-
             return parseInt(page);
         }
     },
