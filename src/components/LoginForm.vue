@@ -23,7 +23,12 @@
         </div>
         <div class="form-group">
           <div>
-            <input class="form-control" type="text" placeholder="password" v-model="data.password" />
+            <input
+              class="form-control"
+              type="password"
+              placeholder="password"
+              v-model="data.password"
+            />
           </div>
         </div>
         <!--begin::Action-->
