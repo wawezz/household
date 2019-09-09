@@ -5,7 +5,7 @@ export const houses = {
     data() {
         return {
             housesOptions: {
-                limit: 8
+                limit: 10
             },
             houses: [],
             housesLoading: false,
@@ -20,23 +20,29 @@ export const houses = {
                 active: false
             },
             originHouses: [],
+            responseSuccessful: false
         }
     },
 
     methods: {
         getHouses () {
             this.housesLoading = true;
-            axios
-                .get('http://cors-anywhere.herokuapp.com/newsarmenia.am/mockData.php')
+            const skip = this.housesOptions.limit * (this.curPage-1);
+            console.log('http://cors-anywhere.herokuapp.com/http://209.163.136.235:3000/BasicCosts/?skip=' + skip + '&take=' + this.housesOptions.limit);
+            axios({
+                method: "get",
+                url: 'http://cors-anywhere.herokuapp.com/http://209.163.136.235:3000/BasicCosts/?skip=' + skip + '&take=' + this.housesOptions.limit
+                })
                 .then(obj => {
-                    this.houses = obj.data;
-                    this.originHouses = JSON.parse(JSON.stringify(obj.data));
-                    const start = this.housesOptions.limit * (this.curPage - 1);
-                    const end = start + this.housesOptions.limit;
-                    this.housesTotalCount = parseInt(this.houses.length);
-                    this.houses = this.houses.slice(start, end);
-                    this.originHouses = this.originHouses.slice(start, end);
+                    this.houses = obj.data.data;
+                    this.originHouses = JSON.parse(JSON.stringify(obj.data.data));
+                    this.housesTotalCount = parseInt(obj.data.count);
                     this.housesLoading = false;
+
+                   //const start = this.housesOptions.limit * (this.curPage - 1);
+                   //const end = start + this.housesOptions.limit;
+                   //this.houses = this.houses.slice(start, end);
+                   //this.originHouses = this.originHouses.slice(start, end);
                 })
                 .catch(error => {console.log(error)})
         },
@@ -45,9 +51,8 @@ export const houses = {
             const currentDate = new Date();
             const formatter = new Intl.DateTimeFormat("ru");
             const actualDate = formatter.format(currentDate);
-            console.log('actualDate',actualDate);
             let changedHouses = [];
-            let wasHousesChanged = false; //<-- эту штуку добавил чтобы отслеживать нажатие на клик, если изменений реально нет
+            let wasHousesChanged = false; //<-- эту штуку добавил чтобы отслеживать нажатие на клик, если изменений реально нет то на сервер не пойдет пост запрос
 
             for(let i=0; i<this.houses.length; i++) {
                 if(Object.keys(updatedDiff(this.houses[i],this.originHouses[i])).length !== 0) {
@@ -58,13 +63,29 @@ export const houses = {
             // ++ actual user && actual date
             if(changedHouses.length !==0) {
                 for(let i=0; i<changedHouses.length; i++) {
-                    changedHouses[i].modifiedBy  = this.$store.state.testUser.username;
-                    changedHouses[i].modifiedDate  = actualDate;
+                    changedHouses[i].ModifiedBy  = this.$store.state.testUser.username;
+                    changedHouses[i].ModifiedDate  = actualDate;
                 }
             }
+            //POST changed data to server
+            if (wasHousesChanged) {
 
-            console.log('results', changedHouses, wasHousesChanged);
-
+                axios({
+                    method: "post",
+                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3000/BasicCosts/save",
+                    data: changedHouses
+                    ,
+                })
+                    .then(() => {
+                       this.responseSuccessful = true;
+                       setTimeout(()=>{this.responseSuccessful = false}, 3000)
+                       }
+                    )
+                    .catch(e => {
+                        const data = e.response.data;
+                        console.log('response error:',data)
+                    })
+            }
         }
     }
 }
