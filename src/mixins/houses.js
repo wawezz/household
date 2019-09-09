@@ -59,7 +59,7 @@ export const houses = {
             }
 
             if (this.housesInProgress === true) return;
-
+            this.housesInProgress = true;
             const changedArray = [];
 
             for (let key in changes) {
@@ -80,10 +80,12 @@ export const houses = {
                         setTimeout(() => {
                             this.housesResponse.active = false
                         }, 3000);
+                    this.housesInProgress = false;
                 })
                 .catch(e => {
                     const data = e.response.data;
-                    console.log('response error:', data)
+                    console.log('response error:', data);
+                    this.housesInProgress = false;
                 })
         }
     }
