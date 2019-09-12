@@ -2,9 +2,16 @@
   <div class="houses">
     <div v-if="this.housesLoading">Loading information. Please wait...</div>
 
-    <div v-else-if="!this.housesLoading">
-      <div>
-        <p>
+    <div v-if="!this.housesLoading">
+      <div v-if="housesResponse.message" class="alert alert-success" role="alert">
+        <div class="alert-text">{{housesResponse.message}}}</div>
+      </div>
+
+      <div v-if="housesError.message" class="alert alert-danger" role="alert">
+        <div class="alert-text">{{housesError.message}}</div>
+      </div>
+      <div class="d-f-space">
+        <div>
           Number of displaying pages:
           <select
             class="houseTable"
@@ -16,11 +23,16 @@
             <option value="100">100</option>
             <option value="150">150</option>
           </select>
-        </p>
+        </div>
+        <div>
+          Up costs to
+          <input type="number" min="1" max="100" size="2" v-model="housesCostPrecent" />%
+          <base-button :type="'primary'" class="ml-2 mr-2" @click="updateCosts()">Updtae costs</base-button>
+        </div>
       </div>
 
       <div class="table">
-        <table>
+        <table class="full-table">
           <thead>
             <tr>
               <th>House</th>
@@ -94,7 +106,7 @@
               </td>
               <td>
                 <input
-                  type="text"
+                  type="number"
                   size="6"
                   class="houseTable"
                   v-model="houses[index].CostPerSquareFoot"
@@ -122,11 +134,11 @@
       </div>
 
       <div>
-        <base-button @click="acceptChanges()">Accept changes</base-button>
+        <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
       </div>
       <br />
-      <div v-if="housesResponse.active" class="alert alert-success" role="alert">
-        <div class="alert-text">New data accepted succesfully</div>
+      <div v-if="housesResponse.message" class="alert alert-success" role="alert">
+        <div class="alert-text">{{housesResponse.message}}}</div>
       </div>
 
       <div v-if="housesError.message" class="alert alert-danger" role="alert">
@@ -159,12 +171,20 @@
   };
 </script>
 
-<style scoped>
+<style>
   .houseTable {
     margin-left: 8px;
   }
   .respSuccessfull {
     margin-left: 20px;
     color: green;
+  }
+  .full-table {
+    width: 100%;
+  }
+
+  .d-f-space {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

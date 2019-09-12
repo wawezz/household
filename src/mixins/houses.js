@@ -20,10 +20,11 @@ export const houses = {
             },
             housesResponse: {
                 timeoutID: null,
-                active: false
+                message: false
             },
             originHouses: [],
-            responseSuccessful: false
+            responseSuccessful: false,
+            housesCostPrecent: 1
         }
     },
 
@@ -33,7 +34,7 @@ export const houses = {
             const skip = this.housesOptions.limit * (this.curPage - 1);
             axios({
                     method: "get",
-                    url: 'http://cors-anywhere.herokuapp.com/http://209.163.136.235:3000/BasicCosts/?skip=' + skip + '&take=' + this.housesOptions.limit
+                    url: 'http://cors-anywhere.herokuapp.com/http://209.163.136.235:3015/BasicCosts/?skip=' + skip + '&take=' + this.housesOptions.limit
                 })
                 .then(obj => {
                     this.houses = obj.data.data;
@@ -45,7 +46,37 @@ export const houses = {
                     console.log(error);
                 })
         },
-
+        updateCosts() {
+            axios({
+                    method: "get",
+                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3015/BasicCosts/priceupdate?percent=" + this.housesCostPrecent
+                })
+                .then((res) => {
+                    if (res.data.raw.length) {
+                        this.housesResponse.message = `cost of ${res.data.raw.length} objects updated to ${this.housesCostPrecent}%`;
+                        this.housesResponse.timeoutID =
+                            setTimeout(() => {
+                                this.housesResponse.message = null
+                            }, 3000);
+                        this.getHouses();
+                    } else {
+                        this.housesError.message = 'error updating objects';
+                        this.housesError.timeoutID =
+                            setTimeout(() => {
+                                this.housesError.message = null
+                            }, 3000);
+                    }
+                    this.housesInProgress = false;
+                })
+                .catch(e => {
+                    this.housesError.message = e.response.data;
+                    this.housesError.timeoutID =
+                        setTimeout(() => {
+                            this.housesError.message = null
+                        }, 5000);
+                    this.housesInProgress = false;
+                })
+        },
         acceptChanges() {
             const changes = updatedDiff(this.originHouses, this.houses);
             if (Object.keys(changes).length === 0) {
@@ -71,20 +102,23 @@ export const houses = {
 
             axios({
                     method: "post",
-                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3000/BasicCosts/save",
+                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3015/BasicCosts/save",
                     data: changedArray,
                 })
                 .then(() => {
-                    this.housesResponse.active = true;
+                    this.housesResponse.message = 'New data accepted succesfully';
                     this.housesResponse.timeoutID =
                         setTimeout(() => {
-                            this.housesResponse.active = false
+                            this.housesResponse.message = null
                         }, 3000);
                     this.housesInProgress = false;
                 })
                 .catch(e => {
-                    const data = e.response.data;
-                    console.log('response error:', data);
+                    this.housesError.message = e.response.data;
+                    this.housesError.timeoutID =
+                        setTimeout(() => {
+                            this.housesError.message = null
+                        }, 5000);
                     this.housesInProgress = false;
                 })
         }
