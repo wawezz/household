@@ -24,11 +24,85 @@ export const houses = {
             },
             originHouses: [],
             responseSuccessful: false,
-            housesCostPrecent: 1
+            housesCostPrecent: 1,
+            housesFilter: '[]',
+            housesSort: '[]',
+            housesFilterObject: {
+                NumberOfCorners: {
+                    value: '',
+                    condition: '='
+                },
+                QualityGroup: {
+                    value: '',
+                    condition: '='
+                },
+                 AreaGroup: {
+                    value: '',
+                    condition: '='
+                },
+            housesSearchString: ''
+            }
         }
     },
 
     methods: {
+
+
+//////////////////////
+        filterHouses() {
+            let filterData = {};
+
+            for (let key in this.housesFilterObject) {
+                let field = this.housesFilterObject[key];
+                if (field.condition !== "BETWEEN" && field.value === "") continue;
+                if (field.condition === "BETWEEN" && (field.from === "" || field.to === "")) continue;
+                if (field.condition === '!=' && !field.value) continue;
+
+                let val;
+                if (field.condition !== '!=' && field.condition !== 'BETWEEN') val = field.condition + '|' + field.value;
+                if (field.condition === '!=') val = field.condition + '|' + field.default;
+                if (field.condition === 'BETWEEN') val = field.condition + '|' + (field.isDate ? moment(field.from).format("YYYY-MM-DD") + ' 00:00:00' : field.from) + '|' + (field.isDate ? moment(field.to).format("YYYY-MM-DD") + ' 00:00:00' : field.to);
+
+                filterData[key] = val;
+            }
+
+            this.housesFilter = '[]';
+
+            if (Object.keys(filterData).length > 0) {
+                this.housesFilter = filterData;
+            }
+            console.log("filterData", filterData);
+
+
+            this.housesQueryControll();
+            this.getHouses();
+        },
+        housesQueryControll() {
+
+            if  (this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.housesFilter)) return;
+
+
+            console.log('housesQueryControll');
+
+            if (this.curPage != 1) {
+                this.$router.push({
+                    name: 'houses',
+                    params: {
+                        page: 1
+                    },
+                    query: this.$route.query
+                });
+            }
+            this.$router.replace({
+                query: {
+                    string: this.housesSearchString,
+                    sort: (this.housesSort !== '[]') ? JSON.stringify(this.housesSort) : '',
+                    filter: (this.housesFilter !== '[]') ? JSON.stringify(this.housesFilter) : ''
+                }
+            });
+        },
+
+////////////////////////
         getHouses() {
             this.housesLoading = true;
             const skip = this.housesOptions.limit * (this.curPage - 1);

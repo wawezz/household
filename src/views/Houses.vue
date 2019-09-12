@@ -24,10 +24,77 @@
             <option value="150">150</option>
           </select>
         </div>
+
+        <div>
+          NumberOfCorners:
+          <select
+            class="houseFilter"
+            v-model="housesFilterObject.NumberOfCorners.value"
+          >
+            <option selected value=""></option>
+            <option>4</option>
+            <option>6</option>
+            <option>8</option>
+            <option>10</option>
+          </select>
+          QualityGroup:
+          <select
+            class="houseFilter"
+            v-model="housesFilterObject.QualityGroup.value"
+          >
+            <option selected value=""></option>
+            <option>1</option>
+            <option>1.5</option>
+            <option>2</option>
+            <option>2.5</option>
+            <option>3</option>
+            <option>3.5</option>
+            <option>4</option>
+            <option>4.5</option>
+            <option>5</option>
+            <option>5.5</option>
+            <option>6</option>
+          </select>
+          AreaGroup:
+          <select
+            class="houseFilter"
+            v-model="housesFilterObject.AreaGroup.value"
+          >
+            <option selected value=""></option>
+            <option>700</option>
+            <option>800</option>
+            <option>900</option>
+            <option>1000</option>
+            <option>1200</option>
+            <option>1300</option>
+            <option>1400</option>
+            <option>1500</option>
+            <option>1600</option>
+            <option>1700</option>
+            <option>1800</option>
+            <option>1900</option>
+            <option>2000</option>
+            <option>2100</option>
+            <option>2200</option>
+            <option>2300</option>
+            <option>2400</option>
+            <option>2500</option>
+            <option>2700</option>
+            <option>2800</option>
+            <option>3000</option>
+            <option>3500</option>
+            <option>4000</option>
+            <option>4500</option>
+            <option>5000</option>
+          </select>
+          <base-button :type="'primary'" class="ml-2 mr-2" @click="filterHouses">Filter</base-button>
+        </div>
+
+
         <div>
           Up costs to
           <input type="number" min="1" max="100" size="2" v-model="housesCostPrecent" />%
-          <base-button :type="'primary'" class="ml-2 mr-2" @click="updateCosts()">Updtae costs</base-button>
+          <base-button :type="'primary'" class="ml-2 mr-2" @click="updateCosts()">Update costs</base-button>
         </div>
       </div>
 
