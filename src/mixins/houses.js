@@ -36,19 +36,37 @@ export const houses = {
                     value: '',
                     condition: '='
                 },
-                 AreaGroup: {
+                AreaGroup: {
                     value: '',
                     condition: '='
-                },
-            housesSearchString: ''
+                }
             }
         }
     },
-
+    computed: {
+        curHousesPage() {
+            let page = 1;
+            if (this.$route.params.page) page = this.$route.params.page;
+            return parseInt(page);
+        }
+    },
+    created() {
+        this.housesSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.housesSort;
+        this.housesFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.housesFilter;
+        if (this.housesFilter !== '[]') {
+            for (let key in this.housesFilter) {
+                const val = this.housesFilter[key].split("|");
+                if (val.length == 3) {
+                    this.housesFilterObject[key].from = val[1];
+                    this.housesFilterObject[key].to = val[2];
+                } else {
+                    this.housesFilterObject[key].value = val[1]
+                }
+            }
+        }
+    },
     methods: {
 
-
-//////////////////////
         filterHouses() {
             let filterData = {};
 
@@ -71,20 +89,33 @@ export const houses = {
             if (Object.keys(filterData).length > 0) {
                 this.housesFilter = filterData;
             }
-            console.log("filterData", filterData);
 
+            this.housesQueryControll();
+            this.getHouses();
+        },
+        sortHousesBy(field = null) {
+            if (field === null) return;
+            if (this.housesSort === '[]') this.housesSort = {};
+            if (!this.housesSort[field]) {
+                this.housesSort[field] = 'DESC';
+            } else if (this.housesSort[field] === 'DESC') {
+                this.housesSort[field] = 'ASC';
+            } else if (this.housesSort[field] === 'ASC') {
+                delete this.housesSort[field];
+            }
 
+            const sortFieldsCount = Object.keys(this.housesSort).length;
+
+            if (sortFieldsCount === 0) this.housesSort = '[]';
             this.housesQueryControll();
             this.getHouses();
         },
         housesQueryControll() {
 
-            if  (this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.housesFilter)) return;
+            if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.housesFilter)) &&
+                (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.housesSort))) return;
 
-
-            console.log('housesQueryControll');
-
-            if (this.curPage != 1) {
+            if (this.curHousesPage != 1) {
                 this.$router.push({
                     name: 'houses',
                     params: {
@@ -92,23 +123,24 @@ export const houses = {
                     },
                     query: this.$route.query
                 });
+
             }
             this.$router.replace({
                 query: {
-                    string: this.housesSearchString,
                     sort: (this.housesSort !== '[]') ? JSON.stringify(this.housesSort) : '',
                     filter: (this.housesFilter !== '[]') ? JSON.stringify(this.housesFilter) : ''
                 }
             });
         },
 
-////////////////////////
         getHouses() {
             this.housesLoading = true;
-            const skip = this.housesOptions.limit * (this.curPage - 1);
+            const skip = this.housesOptions.limit * (this.curHousesPage - 1);
+            const filter = this.housesFilter !== '[]' ? JSON.stringify(this.housesFilter) : this.housesFilter;
+            const sort = this.housesSort !== '[]' ? JSON.stringify(this.housesSort) : this.housesSort;
             axios({
                     method: "get",
-                    url: 'http://cors-anywhere.herokuapp.com/http://209.163.136.235:3015/BasicCosts/?skip=' + skip + '&take=' + this.housesOptions.limit
+                    url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.housesOptions.limit}&sort=${sort}&filter=${filter}`
                 })
                 .then(obj => {
                     this.houses = obj.data.data;
@@ -120,10 +152,10 @@ export const houses = {
                     console.log(error);
                 })
         },
-        updateCosts() {
+        updateCosts(action) {
             axios({
                     method: "get",
-                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3015/BasicCosts/priceupdate?percent=" + this.housesCostPrecent
+                    url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/priceupdate?percent=${this.housesCostPrecent}&action=${action}`
                 })
                 .then((res) => {
                     if (res.data.raw.length) {
@@ -176,7 +208,7 @@ export const houses = {
 
             axios({
                     method: "post",
-                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3015/BasicCosts/save",
+                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
                     data: changedArray,
                 })
                 .then(() => {

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './plugins/fontawesome'
 import VueRouter from "vue-router";
 import RouterPrefetch from 'vue-router-prefetch'
 import Vuex from "vuex";
