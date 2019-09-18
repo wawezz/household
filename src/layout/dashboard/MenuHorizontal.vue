@@ -23,7 +23,67 @@
             aria-haspopup="true"
           >
             <router-link to="/houses/1" class="kt-menu__link kt-menu__toggle">
-              <span class="kt-menu__link-text">Houses</span>
+              <span class="kt-menu__link-text">Basic Costs Per SF</span>
+              <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            </router-link>
+          </li>
+          <li
+                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                  data-ktmenu-submenu-toggle="click"
+                  aria-haspopup="true"
+          >
+          <router-link to="/directcosts/1" class="kt-menu__link kt-menu__toggle">
+            <span class="kt-menu__link-text">Direct Costs</span>
+            <i class="kt-menu__ver-arrow la la-angle-right"></i>
+          </router-link>
+          </li>
+          <li
+                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                  data-ktmenu-submenu-toggle="click"
+                  aria-haspopup="true"
+          >
+            <router-link to="/unitcosts/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Unit Costs</span>
+              <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            </router-link>
+          </li>
+          <li
+                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                  data-ktmenu-submenu-toggle="click"
+                  aria-haspopup="true"
+          >
+            <router-link to="/costdistribution/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Cost Distribution</span>
+              <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            </router-link>
+          </li>
+          <li
+                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                  data-ktmenu-submenu-toggle="click"
+                  aria-haspopup="true"
+          >
+            <router-link to="/cityconstants/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">City Constants</span>
+              <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            </router-link>
+          </li>
+          <li
+                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                  data-ktmenu-submenu-toggle="click"
+                  aria-haspopup="true"
+          >
+            <router-link to="/indirectcosts/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Indirect Costs</span>
+              <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            </router-link>
+          </li>
+          <li
+                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+                  data-ktmenu-submenu-toggle="click"
+                  aria-haspopup="true"
+          >
+            <router-link to="/demolitionconstants/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Demolition Constants</span>
               <i class="kt-menu__ver-arrow la la-angle-right"></i>
             </router-link>
           </li>
