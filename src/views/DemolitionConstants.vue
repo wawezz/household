@@ -63,11 +63,26 @@
           </tbody>
         </table>
       </div>
+
+      <div>
+        <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
+      </div>
+      <br />
+      <div v-if="demolitionconstantsResponse.message" class="alert alert-success" role="alert">
+        <div class="alert-text">{{demolitionconstantsResponse.message}}}</div>
+      </div>
+
+      <div v-if="demolitionconstantsError.message" class="alert alert-danger" role="alert">
+        <div class="alert-text">{{demolitionconstantsError.message}}</div>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+  import {demolitionconstants} from "../mixins/demolitionconstants";
+
   export default {
     name: "DemolitionConstants",
     data() {
@@ -97,7 +112,8 @@
             }
           ]
       }
-    }
+    },
+    mixins: [demolitionconstants]
   }
 </script>
 

@@ -32,33 +32,33 @@ const routes = [{
         component: Houses
       },
       {
-        path: "directcosts/:page",
-        name: "directcosts",
+        path: "direct-costs/:page",
+        name: "direct-costs",
         component: DirectCosts
       },
       {
-        path: "unitcosts/:page",
-        name: "unitcosts",
+        path: "unit-costs/:page",
+        name: "unit-costs",
         component: UnitCosts
       },
       {
-        path: "costdistribution/:page",
-        name: "costdistribution",
+        path: "cost-distribution/:page",
+        name: "cost-distribution",
         component: CostDistribution
       },
       {
-        path: "cityconstants/:page",
-        name: "cityconstants",
+        path: "city-constants/:page",
+        name: "city-constants",
         component: CityConstants
       },
       {
-        path: "indirectcosts/:page",
-        name: "indirectcosts",
+        path: "indirect-costs/:page",
+        name: "indirect-costs",
         component: IndirectCosts
       },
       {
-        path: "demolitionconstants/:page",
-        name: "demolitionconstants",
+        path: "demolition-constants/:page",
+        name: "demolition-constants",
         component: DemolitionConstants
       },
 

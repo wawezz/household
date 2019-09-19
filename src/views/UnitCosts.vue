@@ -92,10 +92,23 @@
        </tbody>
      </table>
    </div>
+   <div>
+     <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
+   </div>
+   <br />
+   <div v-if="unitcostsResponse.message" class="alert alert-success" role="alert">
+     <div class="alert-text">{{unitcostsResponse.message}}}</div>
+   </div>
+
+   <div v-if="unitcostsError.message" class="alert alert-danger" role="alert">
+     <div class="alert-text">{{unitcostsError.message}}</div>
+   </div>
  </div>
 </template>
 
 <script>
+    import {unitcosts} from '../mixins/unitcosts';
+
     export default {
         name: "UnitCosts",
         data() {
@@ -133,7 +146,8 @@
                     }
                 ]
             }
-        }
+        },
+        mixins: [unitcosts]
     }
 </script>
 

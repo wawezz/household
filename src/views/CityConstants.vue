@@ -92,10 +92,23 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
+    </div>
+    <br />
+    <div v-if="cityconstantsResponse.message" class="alert alert-success" role="alert">
+      <div class="alert-text">{{cityconstantsResponse.message}}}</div>
+    </div>
+
+    <div v-if="cityconstantsError.message" class="alert alert-danger" role="alert">
+      <div class="alert-text">{{cityconstantsError.message}}</div>
+    </div>
   </div>
 </template>
 
 <script>
+  import {cityconstants} from "../mixins/cityconstants";
+
   export default {
     name: "CityConstants",
     data() {
@@ -134,7 +147,8 @@
             }
           ]
       }
-    }
+    },
+    mixins: [cityconstants]
 
   }
 </script>
