@@ -26,6 +26,58 @@ export const unitCosts = {
       responseSuccessful: false,
       unitCostsFilter: '[]',
       unitCostsSort: '[]',
+      unitCostsColumns: [
+        {
+          name: 'Id',
+          field: 'id'
+        },
+        {
+          name: 'Home Type',
+          field: 'HomeType',
+          updateble: true,
+          type: 'text'
+        },
+        {
+          name: 'Item Name',
+          field: 'ItemName',
+          updateble: true,
+          type: 'text'
+        },
+        {
+          name: 'General cost per unit',
+          field: 'GeneralCostPerUnit',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Material cost per unit',
+          field: 'MaterialCostPerUnit',
+          updateble: true,
+          type: 'number'
+,        },
+        {
+          name: 'Labor cost per unit',
+          field: 'LaborCostPerUnit',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Equipment cost per unit',
+          field: 'EquipmentCostPerUnit',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Modified by',
+          field: 'ModifiedBy',
+        },
+        {
+          name: 'Modified date',
+          field: 'ModifiedDate',
+        }
+      ],
+
+
       unitCostsFilterObject: {
         HomeType: {
           value: '',
@@ -48,14 +100,6 @@ export const unitCosts = {
           condition: '='
         },
         EquipmentCostPerUnit: {
-          value: '',
-          condition: '='
-        },
-        ModifiedBy: {
-          value: '',
-          condition: '='
-        },
-        ModifiedDate: {
           value: '',
           condition: '='
         }
@@ -112,7 +156,7 @@ export const unitCosts = {
       this.unitCostsQueryControll();
       this.unitCosts();
     },
-    sortunitCostsBy(field = null) {
+    sortUnitCostsBy(field = null) {
       if (field === null) return;
       if (this.unitCostsSort === '[]') this.unitCostsSort = {};
       if (!this.unitCostsSort[field]) {
@@ -159,9 +203,9 @@ export const unitCosts = {
       const filter = this.unitCostsFilter !== '[]' ? JSON.stringify(this.unitCostsFilter) : this.unitCostsFilter;
       const sort = this.unitCostsSort !== '[]' ? JSON.stringify(this.unitCostsSort) : this.unitCostsSort;
       axios({
-          method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.unitCostsOptions.limit}&sort=${sort}&filter=${filter}`
-        })
+        method: "get",
+        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/UnitCosts/?skip=${skip}&take=${this.unitCostsOptions.limit}&sort=${sort}&filter=${filter}`
+      })
         .then(obj => {
           this.unitCosts = obj.data.data;
           this.originUnitCosts = JSON.parse(JSON.stringify(obj.data.data));
@@ -197,10 +241,10 @@ export const unitCosts = {
       }
 
       axios({
-          method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
-          data: changedArray,
-        })
+        method: "post",
+        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/UnitCosts/save",
+        data: changedArray,
+      })
         .then(() => {
           this.unitCostsResponse.message = 'New data accepted succesfully';
           this.unitCostsResponse.timeoutID =

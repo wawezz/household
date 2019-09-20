@@ -1,140 +1,74 @@
 <template>
-  <div class="direct-costs">
-    <div class="table">
-      <table class="full-table">
-        <thead>
-          <tr>
-            <th>
-              <span>Group ID</span>
-            </th>
-            <th>
-              <span>Item Name</span>
-            </th>
-            <th>
-              <span>Material Constant</span>
-            </th>
-            <th>
-              <span>Labour Constant</span>
-            </th>
-            <th>
-              <span>Equip Constant</span>
-            </th>
-            <th>
-              <span>Total Constant</span>
-            </th>
-            <th>
-              <span>Sort Order</span>
-            </th>
-            <th>
-              <span>Quality Class</span>
-            </th>
-            <th>
-              <span>Masonry</span>
-            </th>
-            <th>
-              <span>Modified By</span>
-            </th>
-            <th>
-              <span>Modified Date</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody v-for="(item,index) in directCostsMock" :key="item.id">
-          <tr>
-            <th>
-              <span>{{item.GroupId}}</span>
-            </th>
-            <th>
-              <span>{{item.ItemName}}</span>
-            </th>
-            <th>
-              <span>{{item.MaterialConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.LabourConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.EquipConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.TotalConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.SortOrder}}</span>
-            </th>
-            <th>
-              <span>{{item.QualityClass}}</span>
-            </th>
-            <th>
-              <span>
-                <input v-if="item.Masonry" type="checkbox" checked />
-                <input v-if="!item.Masonry" type="checkbox" />
-              </span>
-            </th>
-            <th>
-              <span>{{item.ModifiedBy}}</span>
-            </th>
-            <th>
-              <span>{{item.ModifiedDate}}</span>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="directCosts">
+    <div v-if="this.directCostsLoading">Loading information. Please wait...</div>
 
-    <div>
-      <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
-    </div>
-    <br />
-    <div v-if="directCostsResponse.message" class="alert alert-success" role="alert">
-      <div class="alert-text">{{directCostsResponse.message}}}</div>
-    </div>
+    <div v-if="!this.directCostsLoading">
+      <notifications :response="directCostsResponse" :error="directCostsError"></notifications>
+      <div class="d-f-space">
+        <div>
+          Number of displaying pages:
+          <select
+            class="directCostsTable"
+            @change="getDirectCosts"
+            v-model="directCostsOptions.limit"
+          >
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+          </select>
+        </div>
 
-    <div v-if="directCostsError.message" class="alert alert-danger" role="alert">
-      <div class="alert-text">{{directCostsError.message}}</div>
+        <div class="table">
+          <active-table
+            :columns="directCostsColumns"
+            :filters="directCostsFilterObject"
+            :data="originDirectCosts"
+            :updatebleData="directCosts"
+            :sort="directCostsSort"
+            :filterFunction="filterDirectCosts"
+            :sortBy="sortDirectCostsBy"
+            :total="directCostsTotalCount"
+            :current="curDirectCostsPage"
+            :size="directCostsOptions.limit"
+            :prefix="'/direct-costs/'"
+            :update="acceptDirectCostsChanges"
+          ></active-table>
+        </div>
+        <notifications :response="directCostsResponse" :error="directCostsError"></notifications>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import { ActiveTable } from "@/components";
+  import { Notifications } from "@/components";
   import { directCosts } from "../mixins/directCosts";
+  import { main } from "./../mixins/main";
+  import authGuard from "../guards/auth.guard";
 
   export default {
+    name: 'directCosts',
+    beforeRouteEnter: authGuard,
     data() {
-      return {
-        directCostsMock: [
-          {
-            GroupId: "12",
-            ItemName: "",
-            MaterialConstant: 10.2,
-            LabourConstant: 10.3,
-            EquipConstant: 10.4,
-            TotalConstant: 10.5,
-            SortOrder: 2,
-            QualityClass: 0,
-            Masonry: 0,
-            ModifiedBy: "ivan",
-            ModifiedDate: "today"
-          },
-          {
-            GroupId: "123",
-            ItemName: "qwer",
-            MaterialConstant: 10.2,
-            LabourConstant: 10.3,
-            EquipConstant: 10.4,
-            TotalConstant: 10.5,
-            SortOrder: 2,
-            QualityClass: 0,
-            Masonry: 1,
-            ModifiedBy: "ivan",
-            ModifiedDate: "today"
-          }
-        ]
-      };
+      return {};
     },
-    mixins: [directCosts]
+    components: {
+      ActiveTable,
+      Notifications
+    },
+
+    mounted(){
+      this.getDirectCosts();
+    },
+
+    mixins: [main,directCosts]
   };
 </script>
 
 <style scoped>
+  .directCostsTable {
+    margin-left: 8px;
+  }
 </style>

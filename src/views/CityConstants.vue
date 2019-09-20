@@ -1,122 +1,73 @@
 <template>
-  <div>
-    <div class="table">
-      <table class="full-table">
-        <thead>
-          <tr>
-            <th>
-              <span>ID</span>
-            </th>
-            <th>
-              <span>City</span>
-            </th>
-            <th>
-              <span>MaterialConstant</span>
-            </th>
-            <th>
-              <span>LabourConstant</span>
-            </th>
-            <th>
-              <span>EquipConstant</span>
-            </th>
-            <th>
-              <span>StateId</span>
-            </th>
-            <th>
-              <span>Modified By</span>
-            </th>
-            <th>
-              <span>Modified Date</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody v-for="(item,index) in cityConstantsMock" :key="item.id">
-          <tr>
-            <th>
-              <span>{{item.id}}</span>
-            </th>
-            <th>
-              <span>{{item.City}}</span>
-            </th>
-            <th>
-              <span>{{item.MaterialConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.LabourConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.EquipConstant}}</span>
-            </th>
-            <th>
-              <span>{{item.StateId}}</span>
-            </th>
-            <th>
-              <span>{{item.ModifiedBy}}</span>
-            </th>
-            <th>
-              <span>{{item.ModifiedDate}}</span>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
-    </div>
-    <br />
-    <div v-if="cityConstantsResponse.message" class="alert alert-success" role="alert">
-      <div class="alert-text">{{cityConstantsResponse.message}}}</div>
-    </div>
+  <div class="cityConstants">
+    <div v-if="this.cityConstantsLoading">Loading information. Please wait...</div>
 
-    <div v-if="cityConstantsError.message" class="alert alert-danger" role="alert">
-      <div class="alert-text">{{cityConstantsError.message}}</div>
+    <div v-if="!this.cityConstantsLoading">
+      <notifications :response="cityConstantsResponse" :error="cityConstantsError"></notifications>
+      <div class="d-f-space">
+        <div>
+          Number of displaying pages:
+          <select
+            class="cityConstantsTable"
+            @change="getCityConstants"
+            v-model="cityConstantsOptions.limit"
+          >
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+          </select>
+        </div>
+
+        <div class="table">
+          <active-table
+            :columns="cityConstantsColumns"
+            :filters="cityConstantsFilterObject"
+            :data="originCityConstants"
+            :updatebleData="cityConstants"
+            :sort="cityConstantsSort"
+            :filterFunction="filterCityConstants"
+            :sortBy="sortCityConstantsBy"
+            :total="cityConstantsTotalCount"
+            :current="curCityConstantsPage"
+            :size="cityConstantsOptions.limit"
+            :prefix="'/city-constants/'"
+            :update="acceptCityConstantsChanges"
+          ></active-table>
+        </div>
+        <notifications :response="cityConstantsResponse" :error="cityConstantsError"></notifications>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import { ActiveTable } from "@/components";
+  import { Notifications } from "@/components";
   import { cityConstants } from "../mixins/cityConstants";
+  import { main } from "./../mixins/main";
+  import authGuard from "../guards/auth.guard";
 
   export default {
+    beforeRouteEnter: authGuard,
     data() {
-      return {
-        cityConstantsMock: [
-          {
-            id: 123,
-            City: "qwer",
-            MaterialConstant: 123.256,
-            LabourConstant: 1254.3564,
-            EquipConstant: 125.321,
-            StateId: "erty",
-            ModifiedBy: "author",
-            ModifiedDate: "today"
-          },
-          {
-            id: 124,
-            City: "qwer",
-            MaterialConstant: 123.256,
-            LabourConstant: 1254.3564,
-            EquipConstant: 125.321,
-            StateId: "erty",
-            ModifiedBy: "author",
-            ModifiedDate: "today"
-          },
-          {
-            id: 121,
-            City: "qwer",
-            MaterialConstant: 123.256,
-            LabourConstant: 1254.3564,
-            EquipConstant: 125.321,
-            StateId: "erty",
-            ModifiedBy: "author",
-            ModifiedDate: "today"
-          }
-        ]
-      };
+      return {};
     },
-    mixins: [cityConstants]
+    components: {
+      ActiveTable,
+      Notifications
+    },
+
+    mounted() {
+      this.getCityConstants();
+    },
+
+    mixins: [main,cityConstants]
   };
 </script>
 
 <style scoped>
+  .cityConstantsTable {
+    margin-left: 8px;
+  }
 </style>

@@ -26,6 +26,51 @@ export const costDistribution = {
       responseSuccessful: false,
       costDistributionFilter: '[]',
       costDistributionSort: '[]',
+      costDistributionColumns: [
+        {
+          name: 'Id',
+          field: 'id'
+        },
+        {
+          name: 'Item name',
+          field: 'ItemName',
+          updateble: true,
+          type: 'text'
+        },
+        {
+          name: 'Line item id',
+          field: 'LineItemId',
+          updateble: true,
+          type: 'text'
+        },
+        {
+          name: 'Material distribution',
+          field: 'MaterialDistribution',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Labor distribution',
+          field: 'LaborDistribution',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Equipment distribution',
+          field: 'EquipmentDistribution',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Modified by',
+          field: 'ModifiedBy'
+        },
+        {
+          name: 'Modified date',
+          field: 'ModifiedDate'
+        }
+      ],
+
       costDistributionFilterObject: {
         ItemName: {
           value: '',
@@ -44,14 +89,6 @@ export const costDistribution = {
           condition: '='
         },
         EquipmentDistribution: {
-          value: '',
-          condition: '='
-        },
-        ModifiedBy: {
-          value: '',
-          condition: '='
-        },
-        ModifiedDate: {
           value: '',
           condition: '='
         }
@@ -156,7 +193,7 @@ export const costDistribution = {
       const sort = this.costDistributionSort !== '[]' ? JSON.stringify(this.costDistributionSort) : this.costDistributionSort;
       axios({
           method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.costDistributionOptions.limit}&sort=${sort}&filter=${filter}`
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CostDistribution/?skip=${skip}&take=${this.costDistributionOptions.limit}&sort=${sort}&filter=${filter}`
         })
         .then(obj => {
           this.costDistributions = obj.data.data;
@@ -194,7 +231,7 @@ export const costDistribution = {
 
       axios({
           method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CostDistribution/save",
           data: changedArray,
         })
         .then(() => {

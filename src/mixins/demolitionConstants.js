@@ -26,20 +26,39 @@ export const demolitionConstants = {
       responseSuccessful: false,
       demolitionConstantsFilter: '[]',
       demolitionConstantsSort: '[]',
+      demolitionConstantsColumns: [
+        {
+          name: 'Id',
+          field: 'id'
+        },
+        {
+          name: 'Item name',
+          field: 'ItemName',
+          updateble: true,
+          type: 'text'
+        },
+        {
+          name: 'Cost per square foot',
+          field: 'CostPerSquareFoot',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Modified by',
+          field: 'ModifiedBy'
+        },
+        {
+          name: 'Modified date',
+          field: 'ModifiedDate'
+        }
+      ],
+
       demolitionConstantsFilterObject: {
         ItemName: {
           value: '',
           condition: '='
         },
         CostPerSquareFoot: {
-          value: '',
-          condition: '='
-        },
-        ModifiedBy: {
-          value: '',
-          condition: '='
-        },
-        ModifiedDate: {
           value: '',
           condition: '='
         }
@@ -143,9 +162,9 @@ export const demolitionConstants = {
       const filter = this.demolitionConstantsFilter !== '[]' ? JSON.stringify(this.demolitionConstantsFilter) : this.demolitionConstantsFilter;
       const sort = this.demolitionConstantsSort !== '[]' ? JSON.stringify(this.demolitionConstantsSort) : this.demolitionConstantsSort;
       axios({
-          method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.directcostsOptions.limit}&sort=${sort}&filter=${filter}`
-        })
+        method: "get",
+        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DemolitionConstants/?skip=${skip}&take=${this.demolitionConstantsOptions.limit}&sort=${sort}&filter=${filter}`
+      })
         .then(obj => {
           this.demolitionConstants = obj.data.data;
           this.originDemolitionConstants = JSON.parse(JSON.stringify(obj.data.data));
@@ -181,10 +200,10 @@ export const demolitionConstants = {
       }
 
       axios({
-          method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
-          data: changedArray,
-        })
+        method: "post",
+        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DemolitionConstants/save",
+        data: changedArray,
+      })
         .then(() => {
           this.demolitionConstantsResponse.message = 'New data accepted succesfully';
           this.demolitionConstantsResponse.timeoutID =

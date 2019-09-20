@@ -1,123 +1,75 @@
 <template>
-  <div class="unit-costs">
-    <div class="table">
-      <table class="full-table">
-        <thead>
-          <tr>
-            <th>
-              <span>HomeType</span>
-            </th>
-            <th>
-              <span>Item Name</span>
-            </th>
-            <th>
-              <span>GeneralCostPerUnit</span>
-            </th>
-            <th>
-              <span>MaterialCostPerUnit</span>
-            </th>
-            <th>
-              <span>LaborCostPerUnit</span>
-            </th>
-            <th>
-              <span>EquipmentCostPerUnit</span>
-            </th>
-            <th>
-              <span>Modified By</span>
-            </th>
-            <th>
-              <span>Modified Date</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody v-for="(item,index) in unitCostsMock" :key="item.id">
-          <tr>
-            <th>
-              <span>{{item.HomeType}}</span>
-            </th>
-            <th>
-              <span>{{item.ItemName}}</span>
-            </th>
-            <th>
-              <span>{{item.GeneralCostPerUnit}}</span>
-            </th>
-            <th>
-              <span>{{item.MaterialCostPerUnit}}</span>
-            </th>
-            <th>
-              <span>{{item.LaborCostPerUnit}}</span>
-            </th>
-            <th>
-              <span>{{item.EquipmentCostPerUnit}}</span>
-            </th>
-            <th>
-              <span>{{item.ModifiedBy}}</span>
-            </th>
-            <th>
-              <span>{{item.ModifiedDate}}</span>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
-    </div>
-    <br />
-    <div v-if="unitCostsResponse.message" class="alert alert-success" role="alert">
-      <div class="alert-text">{{unitCostsResponse.message}}}</div>
-    </div>
+  <div class="unitCosts">
+    <div v-if="this.unitCostsLoading">Loading information. Please wait...</div>
 
-    <div v-if="unitCostsError.message" class="alert alert-danger" role="alert">
-      <div class="alert-text">{{unitCostsError.message}}</div>
+    <div v-if="!this.unitCostsLoading">
+      <notifications :response="unitCostsResponse" :error="unitCostsError"></notifications>
+      <div class="d-f-space">
+        <div>
+          Number of displaying pages:
+          <select
+            class="unitCostsTable"
+            @change="getUnitCosts"
+            v-model="unitCostsOptions.limit"
+          >
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="150">150</option>
+          </select>
+        </div>
+
+        <div class="table">
+          <active-table
+            :columns="unitCostsColumns"
+            :filters="unitCostsFilterObject"
+            :data="originUnitCosts"
+            :updatebleData="unitCosts"
+            :sort="unitCostsSort"
+            :filterFunction="filterUnitCosts"
+            :sortBy="sortUnitCostsBy"
+            :total="unitCostsTotalCount"
+            :current="curUnitCostsPage"
+            :size="unitCostsOptions.limit"
+            :prefix="'/unit-costs/'"
+            :update="acceptUnitCostsChanges"
+          ></active-table>
+        </div>
+        <notifications :response="unitCostsResponse" :error="unitCostsError"></notifications>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import { ActiveTable } from "@/components";
+  import { Notifications } from "@/components";
   import { unitCosts } from "../mixins/unitCosts";
+  import { main } from "./../mixins/main";
+  import authGuard from "../guards/auth.guard";
+
 
   export default {
     name: "unitCosts",
+    beforeRouteEnter: authGuard,
     data() {
-      return {
-        unitCostsMock: [
-          {
-            HomeType: 0,
-            ItemName: "123",
-            GeneralCostPerUnit: 123.2568,
-            MaterialCostPerUnit: 1254.1254,
-            LaborCostPerUnit: 125.1254,
-            EquipmentCostPerUnit: 125.4588,
-            ModifiedBy: "ivan",
-            ModifiedDate: "today"
-          },
-          {
-            HomeType: 1,
-            ItemName: "123",
-            GeneralCostPerUnit: 123.2568,
-            MaterialCostPerUnit: 1254.1254,
-            LaborCostPerUnit: 125.1254,
-            EquipmentCostPerUnit: 125.4588,
-            ModifiedBy: "ivan",
-            ModifiedDate: "today"
-          },
-          {
-            HomeType: 0,
-            ItemName: "123",
-            GeneralCostPerUnit: 123.2568,
-            MaterialCostPerUnit: 1254.1254,
-            LaborCostPerUnit: 125.1254,
-            EquipmentCostPerUnit: 125.4588,
-            ModifiedBy: "ivan",
-            ModifiedDate: "today"
-          }
-        ]
-      };
+      return {};
     },
-    mixins: [unitCosts]
+    components: {
+      ActiveTable,
+      Notifications
+    },
+
+    mounted() {
+      this.getUnitCosts();
+    },
+
+    mixins: [main,unitCosts]
   };
 </script>
 
 <style scoped>
+  .unitCostsTable {
+    margin-left: 8px;
+  }
 </style>
