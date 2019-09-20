@@ -92,11 +92,25 @@
         </tbody>
       </table>
     </div>
+    <div>
+      <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
+    </div>
+    <br />
+    <div v-if="costdistributionResponse.message" class="alert alert-success" role="alert">
+      <div class="alert-text">{{costdistributionResponse.message}}}</div>
+    </div>
+
+    <div v-if="costdistributionError.message" class="alert alert-danger" role="alert">
+      <div class="alert-text">{{costdistributionError.message}}</div>
+    </div>
+
   </div>
 </template>
 
 
 <script>
+  import {costdistribution} from '../mixins/costdistribution';
+
   export default {
     name: "CostDistribution",
     data() {
@@ -135,7 +149,8 @@
             }
           ]
       }
-    }
+    },
+    mixins: [costdistribution]
   }
 
 </script>

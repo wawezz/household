@@ -123,10 +123,25 @@
           </tbody>
         </table>
       </div>
+
+      <div>
+        <base-button :type="'primary'" @click="acceptChanges()">Accept changes</base-button>
+      </div>
+      <br />
+      <div v-if="directcostsResponse.message" class="alert alert-success" role="alert">
+        <div class="alert-text">{{directcostsResponse.message}}}</div>
+      </div>
+
+      <div v-if="directcostsError.message" class="alert alert-danger" role="alert">
+        <div class="alert-text">{{directcostsError.message}}</div>
+      </div>
+
       </div>
 </template>
 
 <script>
+    import {directcosts} from '../mixins/directcosts';
+
     export default {
         name: "DirectCosts",
         data() {
@@ -159,8 +174,11 @@
                }
                ]
            }
-        }
+        },
+        mixins: [directcosts]
     }
+
+
 </script>
 
 <style scoped>
