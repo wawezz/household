@@ -26,6 +26,50 @@ export const cityConstants = {
       responseSuccessful: false,
       cityConstantsFilter: '[]',
       cityConstantsSort: '[]',
+      cityConstantsColumns: [
+        {
+          name: 'Id',
+          field: 'id'
+        },
+        {
+          name: 'City',
+          field: 'City',
+          updateble: true,
+          type: 'text'
+        },
+        {
+          name: 'Material constant',
+          field: 'MaterialConstant',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Labour constant',
+          field: 'LabourConstant',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Equip constant',
+          field: 'EquipConstant',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'State id',
+          field: 'StateId',
+          updateble: true,
+          type: 'number'
+        },
+        {
+          name: 'Modified by',
+          field: 'ModifiedBy'
+        },
+        {
+          name: 'Modified date',
+          field: 'ModifiedDate'
+        }
+      ],
       cityConstantsFilterObject: {
         City: {
           value: '',
@@ -44,14 +88,6 @@ export const cityConstants = {
           condition: '='
         },
         StateId: {
-          value: '',
-          condition: '='
-        },
-        ModifiedBy: {
-          value: '',
-          condition: '='
-        },
-        ModifiedDate: {
           value: '',
           condition: '='
         }
@@ -156,7 +192,7 @@ export const cityConstants = {
       const sort = this.cityConstantsSort !== '[]' ? JSON.stringify(this.cityConstantsSort) : this.cityConstantsSort;
       axios({
           method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.cityConstantsOptions.limit}&sort=${sort}&filter=${filter}`
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CityConstants/?skip=${skip}&take=${this.cityConstantsOptions.limit}&sort=${sort}&filter=${filter}`
         })
         .then(obj => {
           this.cityConstants = obj.data.data;
@@ -194,7 +230,7 @@ export const cityConstants = {
 
       axios({
           method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CityConstants/save",
           data: changedArray,
         })
         .then(() => {
