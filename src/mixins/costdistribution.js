@@ -4,29 +4,29 @@ import {
   updatedDiff
 } from 'deep-object-diff';
 
-export const costdistribution = {
+export const costDistribution = {
   data() {
     return {
-      costdistributionOptions: {
+      costDistributionOptions: {
         limit: 25
       },
-      costdistributions: [],
-      costdistributionLoading: false,
-      costdistributionTotalCount: 0,
-      costdistributionInProgress: false,
-      costdistributionError: {
+      costDistributions: [],
+      costDistributionLoading: false,
+      costDistributionTotalCount: 0,
+      costDistributionInProgress: false,
+      costDistributionError: {
         timeoutID: null,
         message: null
       },
-      costdistributionResponse: {
+      costDistributionResponse: {
         timeoutID: null,
         message: false
       },
-      originCostdistributions: [],
+      originCostDistributions: [],
       responseSuccessful: false,
-      costdistributionFilter: '[]',
-      costdistributionSort: '[]',
-      costdistributionFilterObject: {
+      costDistributionFilter: '[]',
+      costDistributionSort: '[]',
+      costDistributionFilterObject: {
         ItemName: {
           value: '',
           condition: '='
@@ -59,34 +59,34 @@ export const costdistribution = {
     }
   },
   computed: {
-    curCostdistributionPage() {
+    curCostDistributionPage() {
       let page = 1;
       if (this.$route.params.page) page = this.$route.params.page;
       return parseInt(page);
     }
   },
   created() {
-    this.costdistributionSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.costdistributionSort;
-    this.costdistributionFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.costdistributionFilter;
-    if (this.costdistributionFilter !== '[]') {
-      for (let key in this.costdistributionFilter) {
-        const val = this.costdistributionFilter[key].split("|");
+    this.costDistributionSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.costDistributionSort;
+    this.costDistributionFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.costDistributionFilter;
+    if (this.costDistributionFilter !== '[]') {
+      for (let key in this.costDistributionFilter) {
+        const val = this.costDistributionFilter[key].split("|");
         if (val.length == 3) {
-          this.costdistributionFilterObject[key].from = val[1];
-          this.costdistributionFilterObject[key].to = val[2];
+          this.costDistributionFilterObject[key].from = val[1];
+          this.costDistributionFilterObject[key].to = val[2];
         } else {
-          this.costdistributionFilterObject[key].value = val[1]
+          this.costDistributionFilterObject[key].value = val[1]
         }
       }
     }
   },
   methods: {
 
-    filterCostdistribution() {
+    filterCostDistribution() {
       let filterData = {};
 
-      for (let key in this.costdistributionFilterObject) {
-        let field = this.costdistributionFilterObject[key];
+      for (let key in this.costDistributionFilterObject) {
+        let field = this.costDistributionFilterObject[key];
         if (field.condition !== "BETWEEN" && field.value === "") continue;
         if (field.condition === "BETWEEN" && (field.from === "" || field.to === "")) continue;
         if (field.condition === '!=' && !field.value) continue;
@@ -99,39 +99,39 @@ export const costdistribution = {
         filterData[key] = val;
       }
 
-      this.costdistributionFilter = '[]';
+      this.costDistributionFilter = '[]';
 
       if (Object.keys(filterData).length > 0) {
-        this.costdistributionFilter = filterData;
+        this.costDistributionFilter = filterData;
       }
 
-      this.costdistributionQueryControll();
-      this.getCostdistribution();
+      this.costDistributionQueryControll();
+      this.getCostDistribution();
     },
-    sortCostdistributionBy(field = null) {
+    sortCostDistributionBy(field = null) {
       if (field === null) return;
-      if (this.costdistributionSort === '[]') this.costdistributionSort = {};
-      if (!this.costdistributionSort[field]) {
-        this.costdistributionSort[field] = 'DESC';
-      } else if (this.costdistributionSort[field] === 'DESC') {
-        this.costdistributionSort[field] = 'ASC';
-      } else if (this.costdistributionSort[field] === 'ASC') {
-        delete this.costdistributionSort[field];
+      if (this.costDistributionSort === '[]') this.costDistributionSort = {};
+      if (!this.costDistributionSort[field]) {
+        this.costDistributionSort[field] = 'DESC';
+      } else if (this.costDistributionSort[field] === 'DESC') {
+        this.costDistributionSort[field] = 'ASC';
+      } else if (this.costDistributionSort[field] === 'ASC') {
+        delete this.costDistributionSort[field];
       }
 
-      const sortFieldsCount = Object.keys(this.costdistributionSort).length;
+      const sortFieldsCount = Object.keys(this.costDistributionSort).length;
 
-      if (sortFieldsCount === 0) this.costdistributionSort = '[]';
-      this.costdistributionQueryControll();
-      this.getCostdistribution();
+      if (sortFieldsCount === 0) this.costDistributionSort = '[]';
+      this.costDistributionQueryControll();
+      this.getCostDistribution();
     },
 
-    costdistributionQueryControll() {
+    costDistributionQueryControll() {
 
-      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.costdistributionFilter)) &&
-        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.costdistributionSort))) return;
+      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.costDistributionFilter)) &&
+        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.costDistributionSort))) return;
 
-      if (this.curCostdistributionPage != 1) {
+      if (this.curCostDistributionPage != 1) {
         this.$router.push({
           name: 'cost-distribution',
           params: {
@@ -143,75 +143,75 @@ export const costdistribution = {
       }
       this.$router.replace({
         query: {
-          sort: (this.costdistributionSort !== '[]') ? JSON.stringify(this.costdistributionSort) : '',
-          filter: (this.costdistributionFilter !== '[]') ? JSON.stringify(this.costdistributionFilter) : ''
+          sort: (this.costDistributionSort !== '[]') ? JSON.stringify(this.costDistributionSort) : '',
+          filter: (this.costDistributionFilter !== '[]') ? JSON.stringify(this.costDistributionFilter) : ''
         }
       });
     },
 
-    getCostdistribution() {
-      this.costdistributionLoading = true;
-      const skip = this.costdistributionOptions.limit * (this.curCostdistributionPage - 1);
-      const filter = this.costdistributionFilter !== '[]' ? JSON.stringify(this.costdistributionFilter) : this.costdistributionFilter;
-      const sort = this.costdistributionSort !== '[]' ? JSON.stringify(this.costdistributionSort) : this.costdistributionSort;
+    getCostDistribution() {
+      this.costDistributionLoading = true;
+      const skip = this.costDistributionOptions.limit * (this.curCostDistributionPage - 1);
+      const filter = this.costDistributionFilter !== '[]' ? JSON.stringify(this.costDistributionFilter) : this.costDistributionFilter;
+      const sort = this.costDistributionSort !== '[]' ? JSON.stringify(this.costDistributionSort) : this.costDistributionSort;
       axios({
-        method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.costdistributionOptions.limit}&sort=${sort}&filter=${filter}`
-      })
+          method: "get",
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.costDistributionOptions.limit}&sort=${sort}&filter=${filter}`
+        })
         .then(obj => {
-          this.costdistributions = obj.data.data;
-          this.originCostdistributions = JSON.parse(JSON.stringify(obj.data.data));
-          this.costdistributionTotalCount = parseInt(obj.data.count);
-          this.costdistributionLoading = false;
+          this.costDistributions = obj.data.data;
+          this.originCostDistributions = JSON.parse(JSON.stringify(obj.data.data));
+          this.costDistributionTotalCount = parseInt(obj.data.count);
+          this.costDistributionLoading = false;
         })
         .catch(error => {
           console.log(error);
         })
     },
 
-    acceptChanges() {
-      const changes = updatedDiff(this.originCostdistributions, this.costdistributions);
+    acceptCostDistributionsChanges() {
+      const changes = updatedDiff(this.originCostDistributions, this.costDistributions);
       if (Object.keys(changes).length === 0) {
-        this.costdistributionError.message = 'No changes detected';
-        this.costdistributionError.timeoutID =
+        this.costDistributionError.message = 'No changes detected';
+        this.costDistributionError.timeoutID =
           setTimeout(() => {
-            this.costdistributionError.message = null
+            this.costDistributionError.message = null
           }, 3000);
 
         return;
       }
 
-      if (this.costdistributionInProgress === true) return;
-      this.costdistributionInProgress = true;
+      if (this.costDistributionInProgress === true) return;
+      this.costDistributionInProgress = true;
       const changedArray = [];
 
       for (let key in changes) {
 
-        let costdistribution = this.costdistributions[key];
-        costdistribution.ModifiedDate = moment().toISOString();
-        changedArray.push(costdistribution);
+        let costDistribution = this.costDistributions[key];
+        costDistribution.ModifiedDate = moment().toISOString();
+        changedArray.push(costDistribution);
       }
 
       axios({
-        method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
-        data: changedArray,
-      })
+          method: "post",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+          data: changedArray,
+        })
         .then(() => {
-          this.costdistributionResponse.message = 'New data accepted succesfully';
-          this.costdistributionResponse.timeoutID =
+          this.costDistributionResponse.message = 'New data accepted succesfully';
+          this.costDistributionResponse.timeoutID =
             setTimeout(() => {
-              this.costdistributionResponse.message = null
+              this.costDistributionResponse.message = null
             }, 3000);
-          this.costdistributionInProgress = false;
+          this.costDistributionInProgress = false;
         })
         .catch(e => {
-          this.costdistributionError.message = e.response.data;
-          this.costdistributionError.timeoutID =
+          this.costDistributionError.message = e.response.data;
+          this.costDistributionError.timeoutID =
             setTimeout(() => {
-              this.costdistributionError.message = null
+              this.costDistributionError.message = null
             }, 5000);
-          this.costdistributionInProgress = false;
+          this.costDistributionInProgress = false;
         })
     }
   }

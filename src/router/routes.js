@@ -4,13 +4,13 @@ import NotFound from "@/views/NotFound.vue";
 
 const Login = () => import( /* webpackChunkName: "login" */ "@/views/Login.vue");
 const Dashboard = () => import( /* webpackChunkName: "dashboard" */ "@/views/Dashboard.vue");
-const Houses = () => import( /* webpackChunkName: "houses" */ "@/views/Houses.vue");
-const DirectCosts = () => import ("@/views/DirectCosts.vue");
-const UnitCosts = () => import ("@/views/UnitCosts.vue");
-const CostDistribution = () => import ("@/views/CostDistribution.vue");
-const CityConstants = () => import ("@/views/CityConstants.vue");
-const IndirectCosts = () => import ("@/views/IndirectCosts.vue");
-const DemolitionConstants = () => import ("@/views/DemolitionConstants.vue");
+const BasicCosts = () => import( /* webpackChunkName: "houses" */ "@/views/BasicCosts.vue");
+const DirectCosts = () => import("@/views/DirectCosts.vue");
+const UnitCosts = () => import("@/views/UnitCosts.vue");
+const CostDistribution = () => import("@/views/CostDistribution.vue");
+const CityConstants = () => import("@/views/CityConstants.vue");
+const IndirectCosts = () => import("@/views/IndirectCosts.vue");
+const DemolitionConstants = () => import("@/views/DemolitionConstants.vue");
 
 
 const routes = [{
@@ -27,9 +27,9 @@ const routes = [{
         component: Dashboard
       },
       {
-        path: "houses/:page",
-        name: "houses",
-        component: Houses
+        path: "basic-costs/:page",
+        name: "basic-costs",
+        component: BasicCosts
       },
       {
         path: "direct-costs/:page",

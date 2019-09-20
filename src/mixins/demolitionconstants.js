@@ -4,29 +4,29 @@ import {
   updatedDiff
 } from 'deep-object-diff';
 
-export const demolitionconstants = {
+export const demolitionConstants = {
   data() {
     return {
-      demolitionconstantsOptions: {
+      demolitionConstantsOptions: {
         limit: 25
       },
-      demolitionconstants: [],
-      demolitionconstantsLoading: false,
-      demolitionconstantsTotalCount: 0,
-      demolitionconstantsInProgress: false,
-      demolitionconstantsError: {
+      demolitionConstants: [],
+      demolitionConstantsLoading: false,
+      demolitionConstantsTotalCount: 0,
+      demolitionConstantsInProgress: false,
+      demolitionConstantsError: {
         timeoutID: null,
         message: null
       },
-      demolitionconstantsResponse: {
+      demolitionConstantsResponse: {
         timeoutID: null,
         message: false
       },
-      originDemolitionconstants: [],
+      originDemolitionConstants: [],
       responseSuccessful: false,
-      demolitionconstantsFilter: '[]',
-      demolitionconstantsSort: '[]',
-      demolitionconstantsFilterObject: {
+      demolitionConstantsFilter: '[]',
+      demolitionConstantsSort: '[]',
+      demolitionConstantsFilterObject: {
         ItemName: {
           value: '',
           condition: '='
@@ -47,23 +47,23 @@ export const demolitionconstants = {
     }
   },
   computed: {
-    curDemolitionconstantsPage() {
+    curDemolitionConstantsPage() {
       let page = 1;
       if (this.$route.params.page) page = this.$route.params.page;
       return parseInt(page);
     }
   },
   created() {
-    this.demolitionconstantsSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.demolitionconstantsSort;
-    this.demolitionconstantsFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.demolitionconstantsFilter;
-    if (this.demolitionconstantsFilter !== '[]') {
-      for (let key in this.demolitionconstantsFilter) {
-        const val = this.demolitionconstantsFilter[key].split("|");
+    this.demolitionConstantsSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.demolitionConstantsSort;
+    this.demolitionConstantsFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.demolitionConstantsFilter;
+    if (this.demolitionConstantsFilter !== '[]') {
+      for (let key in this.demolitionConstantsFilter) {
+        const val = this.demolitionConstantsFilter[key].split("|");
         if (val.length == 3) {
-          this.demolitionconstantsFilterObject[key].from = val[1];
-          this.demolitionconstantsFilterObject[key].to = val[2];
+          this.demolitionConstantsFilterObject[key].from = val[1];
+          this.demolitionConstantsFilterObject[key].to = val[2];
         } else {
-          this.demolitionconstantsFilterObject[key].value = val[1]
+          this.demolitionConstantsFilterObject[key].value = val[1]
         }
       }
     }
@@ -73,8 +73,8 @@ export const demolitionconstants = {
     filterDemolitionConstants() {
       let filterData = {};
 
-      for (let key in this.demolitionconstantsFilterObject) {
-        let field = this.demolitionconstantsFilterObject[key];
+      for (let key in this.demolitionConstantsFilterObject) {
+        let field = this.demolitionConstantsFilterObject[key];
         if (field.condition !== "BETWEEN" && field.value === "") continue;
         if (field.condition === "BETWEEN" && (field.from === "" || field.to === "")) continue;
         if (field.condition === '!=' && !field.value) continue;
@@ -87,39 +87,39 @@ export const demolitionconstants = {
         filterData[key] = val;
       }
 
-      this.demolitionconstantsFilter = '[]';
+      this.demolitionConstantsFilter = '[]';
 
       if (Object.keys(filterData).length > 0) {
-        this.demolitionconstantsFilter = filterData;
+        this.demolitionConstantsFilter = filterData;
       }
 
-      this.demolitionconstantsQueryControll();
+      this.demolitionConstantsQueryControll();
       this.getDemolitionConstants();
     },
     sortDemolitionConstantsBy(field = null) {
       if (field === null) return;
-      if (this.demolitionconstantsSort === '[]') this.demolitionconstantsSort = {};
-      if (!this.demolitionconstantsSort[field]) {
-        this.demolitionconstantsSort[field] = 'DESC';
-      } else if (this.demolitionconstantsSort[field] === 'DESC') {
-        this.demolitionconstantsSort[field] = 'ASC';
-      } else if (this.demolitionconstantsSort[field] === 'ASC') {
-        delete this.demolitionconstantsSort[field];
+      if (this.demolitionConstantsSort === '[]') this.demolitionConstantsSort = {};
+      if (!this.demolitionConstantsSort[field]) {
+        this.demolitionConstantsSort[field] = 'DESC';
+      } else if (this.demolitionConstantsSort[field] === 'DESC') {
+        this.demolitionConstantsSort[field] = 'ASC';
+      } else if (this.demolitionConstantsSort[field] === 'ASC') {
+        delete this.demolitionConstantsSort[field];
       }
 
-      const sortFieldsCount = Object.keys(this.demolitionconstantsSort).length;
+      const sortFieldsCount = Object.keys(this.demolitionConstantsSort).length;
 
-      if (sortFieldsCount === 0) this.demolitionconstantsSort = '[]';
-      this.demolitionconstantsQueryControll();
+      if (sortFieldsCount === 0) this.demolitionConstantsSort = '[]';
+      this.demolitionConstantsQueryControll();
       this.getDemolitionConstants();
     },
 
-    demolitionconstantsQueryControll() {
+    demolitionConstantsQueryControll() {
 
-      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.demolitionconstantsFilter)) &&
-        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.demolitionconstantsSort))) return;
+      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.demolitionConstantsFilter)) &&
+        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.demolitionConstantsSort))) return;
 
-      if (this.curDemolitionconstantsPage != 1) {
+      if (this.curDemolitionConstantsPage != 1) {
         this.$router.push({
           name: 'demolition-constants',
           params: {
@@ -131,75 +131,75 @@ export const demolitionconstants = {
       }
       this.$router.replace({
         query: {
-          sort: (this.demolitionconstantsSort !== '[]') ? JSON.stringify(this.demolitionconstantsSort) : '',
-          filter: (this.demolitionconstantsFilter !== '[]') ? JSON.stringify(this.demolitionconstantsFilter) : ''
+          sort: (this.demolitionConstantsSort !== '[]') ? JSON.stringify(this.demolitionConstantsSort) : '',
+          filter: (this.demolitionConstantsFilter !== '[]') ? JSON.stringify(this.demolitionConstantsFilter) : ''
         }
       });
     },
 
     getDemolitionConstants() {
-      this.demolitionconstantsLoading = true;
-      const skip = this.demolitionconstantsOptions.limit * (this.curDemolitionconstantsPage - 1);
-      const filter = this.demolitionconstantsFilter !== '[]' ? JSON.stringify(this.demolitionconstantsFilter) : this.demolitionconstantsFilter;
-      const sort = this.demolitionconstantsSort !== '[]' ? JSON.stringify(this.demolitionconstantsSort) : this.demolitionconstantsSort;
+      this.demolitionConstantsLoading = true;
+      const skip = this.demolitionConstantsOptions.limit * (this.curDemolitionConstantsPage - 1);
+      const filter = this.demolitionConstantsFilter !== '[]' ? JSON.stringify(this.demolitionConstantsFilter) : this.demolitionConstantsFilter;
+      const sort = this.demolitionConstantsSort !== '[]' ? JSON.stringify(this.demolitionConstantsSort) : this.demolitionConstantsSort;
       axios({
-        method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.directcostsOptions.limit}&sort=${sort}&filter=${filter}`
-      })
+          method: "get",
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.directcostsOptions.limit}&sort=${sort}&filter=${filter}`
+        })
         .then(obj => {
-          this.demolitionconstants = obj.data.data;
-          this.originDemolitionconstants = JSON.parse(JSON.stringify(obj.data.data));
-          this.demolitionconstantsTotalCount = parseInt(obj.data.count);
-          this.demolitionconstantsLoading = false;
+          this.demolitionConstants = obj.data.data;
+          this.originDemolitionConstants = JSON.parse(JSON.stringify(obj.data.data));
+          this.demolitionConstantsTotalCount = parseInt(obj.data.count);
+          this.demolitionConstantsLoading = false;
         })
         .catch(error => {
           console.log(error);
         })
     },
 
-    acceptChanges() {
-      const changes = updatedDiff(this.originDemolitionconstants, this.demolitionconstants);
+    acceptDemolitionConstantsChanges() {
+      const changes = updatedDiff(this.originDemolitionConstants, this.demolitionConstants);
       if (Object.keys(changes).length === 0) {
-        this.demolitionconstantsError.message = 'No changes detected';
-        this.demolitionconstantsError.timeoutID =
+        this.demolitionConstantsError.message = 'No changes detected';
+        this.demolitionConstantsError.timeoutID =
           setTimeout(() => {
-            this.demolitionconstantsError.message = null
+            this.demolitionConstantsError.message = null
           }, 3000);
 
         return;
       }
 
-      if (this.demolitionconstantsInProgress === true) return;
-      this.demolitionconstantsInProgress = true;
+      if (this.demolitionConstantsInProgress === true) return;
+      this.demolitionConstantsInProgress = true;
       const changedArray = [];
 
       for (let key in changes) {
 
-        let demolitionconstant = this.demolitionconstants[key];
-        demolitionconstant.ModifiedDate = moment().toISOString();
-        changedArray.push(demolitionconstant);
+        let demolitionConstant = this.demolitionConstants[key];
+        demolitionConstant.ModifiedDate = moment().toISOString();
+        changedArray.push(demolitionConstant);
       }
 
       axios({
-        method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
-        data: changedArray,
-      })
+          method: "post",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+          data: changedArray,
+        })
         .then(() => {
-          this.demolitionconstantsResponse.message = 'New data accepted succesfully';
-          this.demolitionconstantsResponse.timeoutID =
+          this.demolitionConstantsResponse.message = 'New data accepted succesfully';
+          this.demolitionConstantsResponse.timeoutID =
             setTimeout(() => {
-              this.demolitionconstantsResponse.message = null
+              this.demolitionConstantsResponse.message = null
             }, 3000);
-          this.demolitionconstantsInProgress = false;
+          this.demolitionConstantsInProgress = false;
         })
         .catch(e => {
-          this.demolitionconstantsError.message = e.response.data;
-          this.demolitionconstantsError.timeoutID =
+          this.demolitionConstantsError.message = e.response.data;
+          this.demolitionConstantsError.timeoutID =
             setTimeout(() => {
-              this.demolitionconstantsError.message = null
+              this.demolitionConstantsError.message = null
             }, 5000);
-          this.demolitionconstantsInProgress = false;
+          this.demolitionConstantsInProgress = false;
         })
     }
   }

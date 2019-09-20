@@ -4,29 +4,29 @@ import {
   updatedDiff
 } from 'deep-object-diff';
 
-export const cityconstants = {
+export const cityConstants = {
   data() {
     return {
-      cityconstantsOptions: {
+      cityConstantsOptions: {
         limit: 25
       },
-      cityconstants: [],
-      cityconstantsLoading: false,
-      cityconstantsTotalCount: 0,
-      cityconstantsInProgress: false,
-      cityconstantsError: {
+      cityConstants: [],
+      cityConstantsLoading: false,
+      cityConstantsTotalCount: 0,
+      cityConstantsInProgress: false,
+      cityConstantsError: {
         timeoutID: null,
         message: null
       },
-      cityconstantsResponse: {
+      cityConstantsResponse: {
         timeoutID: null,
         message: false
       },
-      originCityconstants: [],
+      originCityConstants: [],
       responseSuccessful: false,
-      cityconstantsFilter: '[]',
-      cityconstantsSort: '[]',
-      cityconstantsFilterObject: {
+      cityConstantsFilter: '[]',
+      cityConstantsSort: '[]',
+      cityConstantsFilterObject: {
         City: {
           value: '',
           condition: '='
@@ -66,16 +66,16 @@ export const cityconstants = {
     }
   },
   created() {
-    this.cityconstantsSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.cityconstantsSort;
-    this.cityconstantsFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.cityconstantsFilter;
-    if (this.cityconstantsFilter !== '[]') {
-      for (let key in this.cityconstantsFilter) {
-        const val = this.cityconstantsFilter[key].split("|");
+    this.cityConstantsSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.cityConstantsSort;
+    this.cityConstantsFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.cityConstantsFilter;
+    if (this.cityConstantsFilter !== '[]') {
+      for (let key in this.cityConstantsFilter) {
+        const val = this.cityConstantsFilter[key].split("|");
         if (val.length == 3) {
-          this.cityconstantsFilterObject[key].from = val[1];
-          this.cityconstantsFilterObject[key].to = val[2];
+          this.cityConstantsFilterObject[key].from = val[1];
+          this.cityConstantsFilterObject[key].to = val[2];
         } else {
-          this.cityconstantsFilterObject[key].value = val[1]
+          this.cityConstantsFilterObject[key].value = val[1]
         }
       }
     }
@@ -85,8 +85,8 @@ export const cityconstants = {
     filterCityConstants() {
       let filterData = {};
 
-      for (let key in this.cityconstantsFilterObject) {
-        let field = this.cityconstantsFilterObject[key];
+      for (let key in this.cityConstantsFilterObject) {
+        let field = this.cityConstantsFilterObject[key];
         if (field.condition !== "BETWEEN" && field.value === "") continue;
         if (field.condition === "BETWEEN" && (field.from === "" || field.to === "")) continue;
         if (field.condition === '!=' && !field.value) continue;
@@ -99,37 +99,37 @@ export const cityconstants = {
         filterData[key] = val;
       }
 
-      this.cityconstantsFilter = '[]';
+      this.cityConstantsFilter = '[]';
 
       if (Object.keys(filterData).length > 0) {
-        this.cityconstantsFilter = filterData;
+        this.cityConstantsFilter = filterData;
       }
 
-      this.cityconstantsQueryControll();
+      this.cityConstantsQueryControll();
       this.getCityConstants();
     },
     sortCityConstantsBy(field = null) {
       if (field === null) return;
-      if (this.cityconstantsSort === '[]') this.cityconstantsSort = {};
-      if (!this.cityconstantsSort[field]) {
-        this.cityconstantsSort[field] = 'DESC';
-      } else if (this.cityconstantsSort[field] === 'DESC') {
-        this.cityconstantsSort[field] = 'ASC';
-      } else if (this.cityconstantsSort[field] === 'ASC') {
-        delete this.cityconstantsSort[field];
+      if (this.cityConstantsSort === '[]') this.cityConstantsSort = {};
+      if (!this.cityConstantsSort[field]) {
+        this.cityConstantsSort[field] = 'DESC';
+      } else if (this.cityConstantsSort[field] === 'DESC') {
+        this.cityConstantsSort[field] = 'ASC';
+      } else if (this.cityConstantsSort[field] === 'ASC') {
+        delete this.cityConstantsSort[field];
       }
 
-      const sortFieldsCount = Object.keys(this.cityconstantsSort).length;
+      const sortFieldsCount = Object.keys(this.cityConstantsSort).length;
 
       if (sortFieldsCount === 0) this.directcostsSort = '[]';
-      this.cityconstantsQueryControll();
+      this.cityConstantsQueryControll();
       this.getCityConstants();
     },
 
-    cityconstantsQueryControll() {
+    cityConstantsQueryControll() {
 
-      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.cityconstantsFilter)) &&
-        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.cityconstantsSort))) return;
+      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.cityConstantsFilter)) &&
+        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.cityConstantsSort))) return;
 
       if (this.curCityConstantsPage != 1) {
         this.$router.push({
@@ -143,75 +143,75 @@ export const cityconstants = {
       }
       this.$router.replace({
         query: {
-          sort: (this.cityconstantsSort !== '[]') ? JSON.stringify(this.cityconstantsSort) : '',
-          filter: (this.cityconstantsFilter !== '[]') ? JSON.stringify(this.cityconstantsFilter) : ''
+          sort: (this.cityConstantsSort !== '[]') ? JSON.stringify(this.cityConstantsSort) : '',
+          filter: (this.cityConstantsFilter !== '[]') ? JSON.stringify(this.cityConstantsFilter) : ''
         }
       });
     },
 
     getCityConstants() {
-      this.cityconstantsLoading = true;
-      const skip = this.cityconstantsOptions.limit * (this.curCityConstantsPage - 1);
-      const filter = this.cityconstantsFilter !== '[]' ? JSON.stringify(this.cityconstantsFilter) : this.cityconstantsFilter;
-      const sort = this.cityconstantsSort !== '[]' ? JSON.stringify(this.cityconstantsSort) : this.cityconstantsSort;
+      this.cityConstantsLoading = true;
+      const skip = this.cityConstantsOptions.limit * (this.curCityConstantsPage - 1);
+      const filter = this.cityConstantsFilter !== '[]' ? JSON.stringify(this.cityConstantsFilter) : this.cityConstantsFilter;
+      const sort = this.cityConstantsSort !== '[]' ? JSON.stringify(this.cityConstantsSort) : this.cityConstantsSort;
       axios({
-        method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.cityconstantsOptions.limit}&sort=${sort}&filter=${filter}`
-      })
+          method: "get",
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.cityConstantsOptions.limit}&sort=${sort}&filter=${filter}`
+        })
         .then(obj => {
-          this.cityconstants = obj.data.data;
+          this.cityConstants = obj.data.data;
           this.originCityConstants = JSON.parse(JSON.stringify(obj.data.data));
-          this.cityconstantsTotalCount = parseInt(obj.data.count);
-          this.cityconstantsLoading = false;
+          this.cityConstantsTotalCount = parseInt(obj.data.count);
+          this.cityConstantsLoading = false;
         })
         .catch(error => {
           console.log(error);
         })
     },
 
-    acceptChanges() {
-      const changes = updatedDiff(this.originCityconstants, this.cityconstants);
+    acceptCityConstantsChanges() {
+      const changes = updatedDiff(this.originCityConstants, this.cityConstants);
       if (Object.keys(changes).length === 0) {
-        this.cityconstantsError.message = 'No changes detected';
-        this.cityconstantsError.timeoutID =
+        this.cityConstantsError.message = 'No changes detected';
+        this.cityConstantsError.timeoutID =
           setTimeout(() => {
-            this.cityconstantsError.message = null
+            this.cityConstantsError.message = null
           }, 3000);
 
         return;
       }
 
-      if (this.cityconstantsInProgress === true) return;
-      this.cityconstantsInProgress = true;
+      if (this.cityConstantsInProgress === true) return;
+      this.cityConstantsInProgress = true;
       const changedArray = [];
 
       for (let key in changes) {
 
-        let cityconstant = this.cityconstants[key];
-        cityconstant.ModifiedDate = moment().toISOString();
-        changedArray.push(cityconstant);
+        let cityConstant = this.cityConstants[key];
+        cityConstant.ModifiedDate = moment().toISOString();
+        changedArray.push(cityConstant);
       }
 
       axios({
-        method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
-        data: changedArray,
-      })
+          method: "post",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+          data: changedArray,
+        })
         .then(() => {
-          this.cityconstantsResponse.message = 'New data accepted succesfully';
-          this.cityconstantsResponse.timeoutID =
+          this.cityConstantsResponse.message = 'New data accepted succesfully';
+          this.cityConstantsResponse.timeoutID =
             setTimeout(() => {
-              this.cityconstantsResponse.message = null
+              this.cityConstantsResponse.message = null
             }, 3000);
-          this.cityconstantsInProgress = false;
+          this.cityConstantsInProgress = false;
         })
         .catch(e => {
-          this.cityconstantsError.message = e.response.data;
-          this.cityconstantsError.timeoutID =
+          this.cityConstantsError.message = e.response.data;
+          this.cityConstantsError.timeoutID =
             setTimeout(() => {
-              this.cityconstantsError.message = null
+              this.cityConstantsError.message = null
             }, 5000);
-          this.cityconstantsInProgress = false;
+          this.cityConstantsInProgress = false;
         })
     }
   }

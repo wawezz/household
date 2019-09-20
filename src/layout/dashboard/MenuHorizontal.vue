@@ -22,25 +22,25 @@
             data-ktmenu-submenu-toggle="click"
             aria-haspopup="true"
           >
-            <router-link to="/houses/1" class="kt-menu__link kt-menu__toggle">
-              <span class="kt-menu__link-text">Basic Costs Per SF</span>
+            <router-link to="/basic-costs/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Basic Costs</span>
               <i class="kt-menu__ver-arrow la la-angle-right"></i>
             </router-link>
           </li>
           <li
-                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
-                  data-ktmenu-submenu-toggle="click"
-                  aria-haspopup="true"
+            class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+            data-ktmenu-submenu-toggle="click"
+            aria-haspopup="true"
           >
-          <router-link to="/direct-costs/1" class="kt-menu__link kt-menu__toggle">
-            <span class="kt-menu__link-text">Direct Costs</span>
-            <i class="kt-menu__ver-arrow la la-angle-right"></i>
-          </router-link>
+            <router-link to="/direct-costs/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Direct Costs</span>
+              <i class="kt-menu__ver-arrow la la-angle-right"></i>
+            </router-link>
           </li>
           <li
-                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
-                  data-ktmenu-submenu-toggle="click"
-                  aria-haspopup="true"
+            class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+            data-ktmenu-submenu-toggle="click"
+            aria-haspopup="true"
           >
             <router-link to="/unit-costs/1" class="kt-menu__link kt-menu__toggle">
               <span class="kt-menu__link-text">Unit Costs</span>
@@ -48,9 +48,9 @@
             </router-link>
           </li>
           <li
-                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
-                  data-ktmenu-submenu-toggle="click"
-                  aria-haspopup="true"
+            class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+            data-ktmenu-submenu-toggle="click"
+            aria-haspopup="true"
           >
             <router-link to="/cost-distribution/1" class="kt-menu__link kt-menu__toggle">
               <span class="kt-menu__link-text">Cost Distribution</span>
@@ -58,9 +58,9 @@
             </router-link>
           </li>
           <li
-                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
-                  data-ktmenu-submenu-toggle="click"
-                  aria-haspopup="true"
+            class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+            data-ktmenu-submenu-toggle="click"
+            aria-haspopup="true"
           >
             <router-link to="/city-constants/1" class="kt-menu__link kt-menu__toggle">
               <span class="kt-menu__link-text">City Constants</span>
@@ -68,9 +68,9 @@
             </router-link>
           </li>
           <li
-                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
-                  data-ktmenu-submenu-toggle="click"
-                  aria-haspopup="true"
+            class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+            data-ktmenu-submenu-toggle="click"
+            aria-haspopup="true"
           >
             <router-link to="/indirect-costs/1" class="kt-menu__link kt-menu__toggle">
               <span class="kt-menu__link-text">Indirect Costs</span>
@@ -78,9 +78,9 @@
             </router-link>
           </li>
           <li
-                  class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
-                  data-ktmenu-submenu-toggle="click"
-                  aria-haspopup="true"
+            class="kt-menu__item kt-menu__item--submenu kt-menu__item--rel"
+            data-ktmenu-submenu-toggle="click"
+            aria-haspopup="true"
           >
             <router-link to="/demolition-constants/1" class="kt-menu__link kt-menu__toggle">
               <span class="kt-menu__link-text">Demolition Constants</span>

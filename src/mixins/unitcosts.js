@@ -4,29 +4,29 @@ import {
   updatedDiff
 } from 'deep-object-diff';
 
-export const unitcosts = {
+export const unitCosts = {
   data() {
     return {
-      unitcostsOptions: {
+      unitCostsOptions: {
         limit: 25
       },
-      unitcosts: [],
-      unitcostsLoading: false,
-      unitcostsTotalCount: 0,
-      unitcostsInProgress: false,
-      unitcostsError: {
+      unitCosts: [],
+      unitCostsLoading: false,
+      unitCostsTotalCount: 0,
+      unitCostsInProgress: false,
+      unitCostsError: {
         timeoutID: null,
         message: null
       },
-      unitcostsResponse: {
+      unitCostsResponse: {
         timeoutID: null,
         message: false
       },
-      originUnitcosts: [],
+      originUnitCosts: [],
       responseSuccessful: false,
-      unitcostsFilter: '[]',
-      unitcostsSort: '[]',
-      unitcostsFilterObject: {
+      unitCostsFilter: '[]',
+      unitCostsSort: '[]',
+      unitCostsFilterObject: {
         HomeType: {
           value: '',
           condition: '='
@@ -70,16 +70,16 @@ export const unitcosts = {
     }
   },
   created() {
-    this.unitcostsSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.unitcostsSort;
-    this.unitcostsFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.unitcostsFilter;
-    if (this.unitcostsFilter !== '[]') {
-      for (let key in this.unitcostsFilter) {
-        const val = this.unitcostsFilter[key].split("|");
+    this.unitCostsSort = this.$route.query.sort && this.$route.query.sort.length ? JSON.parse(this.$route.query.sort) : this.unitCostsSort;
+    this.unitCostsFilter = this.$route.query.filter && this.$route.query.filter.length ? JSON.parse(this.$route.query.filter) : this.unitCostsFilter;
+    if (this.unitCostsFilter !== '[]') {
+      for (let key in this.unitCostsFilter) {
+        const val = this.unitCostsFilter[key].split("|");
         if (val.length == 3) {
-          this.unitcostsFilterObject[key].from = val[1];
-          this.unitcostsFilterObject[key].to = val[2];
+          this.unitCostsFilterObject[key].from = val[1];
+          this.unitCostsFilterObject[key].to = val[2];
         } else {
-          this.unitcostsFilterObject[key].value = val[1]
+          this.unitCostsFilterObject[key].value = val[1]
         }
       }
     }
@@ -89,8 +89,8 @@ export const unitcosts = {
     filterUnitCosts() {
       let filterData = {};
 
-      for (let key in this.unitcostsFilterObject) {
-        let field = this.unitcostsFilterObject[key];
+      for (let key in this.unitCostsFilterObject) {
+        let field = this.unitCostsFilterObject[key];
         if (field.condition !== "BETWEEN" && field.value === "") continue;
         if (field.condition === "BETWEEN" && (field.from === "" || field.to === "")) continue;
         if (field.condition === '!=' && !field.value) continue;
@@ -103,37 +103,37 @@ export const unitcosts = {
         filterData[key] = val;
       }
 
-      this.unitcostsFilter = '[]';
+      this.unitCostsFilter = '[]';
 
       if (Object.keys(filterData).length > 0) {
-        this.unitcostsFilter = filterData;
+        this.unitCostsFilter = filterData;
       }
 
-      this.unitcostsQueryControll();
-      this.UnitCosts();
+      this.unitCostsQueryControll();
+      this.unitCosts();
     },
-    sortUnitCostsBy(field = null) {
+    sortunitCostsBy(field = null) {
       if (field === null) return;
-      if (this.unitcostsSort === '[]') this.unitcostsSort = {};
-      if (!this.unitcostsSort[field]) {
-        this.unitcostsSort[field] = 'DESC';
-      } else if (this.unitcostsSort[field] === 'DESC') {
-        this.unitcostsSort[field] = 'ASC';
-      } else if (this.unitcostsSort[field] === 'ASC') {
-        delete this.unitcostsSort[field];
+      if (this.unitCostsSort === '[]') this.unitCostsSort = {};
+      if (!this.unitCostsSort[field]) {
+        this.unitCostsSort[field] = 'DESC';
+      } else if (this.unitCostsSort[field] === 'DESC') {
+        this.unitCostsSort[field] = 'ASC';
+      } else if (this.unitCostsSort[field] === 'ASC') {
+        delete this.unitCostsSort[field];
       }
 
-      const sortFieldsCount = Object.keys(this.unitcostsSort).length;
+      const sortFieldsCount = Object.keys(this.unitCostsSort).length;
 
-      if (sortFieldsCount === 0) this.unitcostsSort = '[]';
-      this.unitcostsQueryControll();
+      if (sortFieldsCount === 0) this.unitCostsSort = '[]';
+      this.unitCostsQueryControll();
       this.getUnitCosts();
     },
 
-    unitcostsQueryControll() {
+    unitCostsQueryControll() {
 
-      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.unitcostsFilter)) &&
-        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.unitcostsSort))) return;
+      if ((this.$route.query.filter != '' && this.$route.query.filter === JSON.stringify(this.unitCostsFilter)) &&
+        (this.$route.query.sort != '' && this.$route.query.sort === JSON.stringify(this.unitCostsSort))) return;
 
       if (this.curUnitCostsPage != 1) {
         this.$router.push({
@@ -147,75 +147,75 @@ export const unitcosts = {
       }
       this.$router.replace({
         query: {
-          sort: (this.unitcostsSort !== '[]') ? JSON.stringify(this.unitcostsSort) : '',
-          filter: (this.unitcostsFilter !== '[]') ? JSON.stringify(this.unitcostsFilter) : ''
+          sort: (this.unitCostsSort !== '[]') ? JSON.stringify(this.unitCostsSort) : '',
+          filter: (this.unitCostsFilter !== '[]') ? JSON.stringify(this.unitCostsFilter) : ''
         }
       });
     },
 
     getUnitCosts() {
-      this.unitcostsLoading = true;
-      const skip = this.unitcostsOptions.limit * (this.curUnitCostsPage - 1);
-      const filter = this.unitcostsFilter !== '[]' ? JSON.stringify(this.unitcostsFilter) : this.unitcostsFilter;
-      const sort = this.unitcostsSort !== '[]' ? JSON.stringify(this.unitcostsSort) : this.unitcostsSort;
+      this.unitCostsLoading = true;
+      const skip = this.unitCostsOptions.limit * (this.curUnitCostsPage - 1);
+      const filter = this.unitCostsFilter !== '[]' ? JSON.stringify(this.unitCostsFilter) : this.unitCostsFilter;
+      const sort = this.unitCostsSort !== '[]' ? JSON.stringify(this.unitCostsSort) : this.unitCostsSort;
       axios({
-        method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.unitcostsOptions.limit}&sort=${sort}&filter=${filter}`
-      })
+          method: "get",
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.unitCostsOptions.limit}&sort=${sort}&filter=${filter}`
+        })
         .then(obj => {
-          this.unitcosts = obj.data.data;
-          this.originUnitcosts = JSON.parse(JSON.stringify(obj.data.data));
-          this.unitcostsTotalCount = parseInt(obj.data.count);
-          this.unitcostsLoading = false;
+          this.unitCosts = obj.data.data;
+          this.originUnitCosts = JSON.parse(JSON.stringify(obj.data.data));
+          this.unitCostsTotalCount = parseInt(obj.data.count);
+          this.unitCostsLoading = false;
         })
         .catch(error => {
           console.log(error);
         })
     },
 
-    acceptChanges() {
-      const changes = updatedDiff(this.originUnitcosts, this.unitcosts);
+    acceptUnitCostsChanges() {
+      const changes = updatedDiff(this.originUnitCosts, this.unitCosts);
       if (Object.keys(changes).length === 0) {
-        this.unitcostsError.message = 'No changes detected';
-        this.unitcostsError.timeoutID =
+        this.unitCostsError.message = 'No changes detected';
+        this.unitCostsError.timeoutID =
           setTimeout(() => {
-            this.unitcostsError.message = null
+            this.unitCostsError.message = null
           }, 3000);
 
         return;
       }
 
-      if (this.unitcostsInProgress === true) return;
-      this.unitcostsInProgress = true;
+      if (this.unitCostsInProgress === true) return;
+      this.unitCostsInProgress = true;
       const changedArray = [];
 
       for (let key in changes) {
 
-        let unitcost = this.unitcosts[key];
-        unitcost.ModifiedDate = moment().toISOString();
-        changedArray.push(unitcost);
+        let unitCost = this.unitCosts[key];
+        unitCost.ModifiedDate = moment().toISOString();
+        changedArray.push(unitCost);
       }
 
       axios({
-        method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
-        data: changedArray,
-      })
+          method: "post",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+          data: changedArray,
+        })
         .then(() => {
-          this.unitcostsResponse.message = 'New data accepted succesfully';
-          this.unitcostsResponse.timeoutID =
+          this.unitCostsResponse.message = 'New data accepted succesfully';
+          this.unitCostsResponse.timeoutID =
             setTimeout(() => {
-              this.unitcostsResponse.message = null
+              this.unitCostsResponse.message = null
             }, 3000);
-          this.unitcostsInProgress = false;
+          this.unitCostsInProgress = false;
         })
         .catch(e => {
-          this.unitcostsError.message = e.response.data;
-          this.unitcostsError.timeoutID =
+          this.unitCostsError.message = e.response.data;
+          this.unitCostsError.timeoutID =
             setTimeout(() => {
-              this.unitcostsError.message = null
+              this.unitCostsError.message = null
             }, 5000);
-          this.unitcostsInProgress = false;
+          this.unitCostsInProgress = false;
         })
     }
   }
