@@ -7,7 +7,7 @@ const Dashboard = () => import( /* webpackChunkName: "dashboard" */ "@/views/Das
 const BasicCosts = () => import( /* webpackChunkName: "houses" */ "@/views/BasicCosts.vue");
 const DirectCosts = () => import("@/views/DirectCosts.vue");
 const UnitCosts = () => import("@/views/UnitCosts.vue");
-const CostDistribution = () => import("@/views/CostDistribution.vue");
+const CostDistributions = () => import("@/views/CostDistributions.vue");
 const CityConstants = () => import("@/views/CityConstants.vue");
 const IndirectCosts = () => import("@/views/IndirectCosts.vue");
 const DemolitionConstants = () => import("@/views/DemolitionConstants.vue");
@@ -42,9 +42,9 @@ const routes = [{
         component: UnitCosts
       },
       {
-        path: "cost-distribution/:page",
-        name: "cost-distribution",
-        component: CostDistribution
+        path: "cost-distributions/:page",
+        name: "cost-distributions",
+        component: CostDistributions
       },
       {
         path: "city-constants/:page",

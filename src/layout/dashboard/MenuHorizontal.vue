@@ -52,8 +52,8 @@
             data-ktmenu-submenu-toggle="click"
             aria-haspopup="true"
           >
-            <router-link to="/cost-distribution/1" class="kt-menu__link kt-menu__toggle">
-              <span class="kt-menu__link-text">Cost Distribution</span>
+            <router-link to="/cost-distributions/1" class="kt-menu__link kt-menu__toggle">
+              <span class="kt-menu__link-text">Cost Distributions</span>
               <i class="kt-menu__ver-arrow la la-angle-right"></i>
             </router-link>
           </li>
