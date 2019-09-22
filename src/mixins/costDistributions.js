@@ -28,7 +28,7 @@ export const costDistributions = {
       costDistributionsort: '[]',
       costDistributionsColumns: [{
           name: 'Id',
-          field: 'id'
+          field: 'Id'
         },
         {
           name: 'Item name',
@@ -44,29 +44,15 @@ export const costDistributions = {
         },
         {
           name: 'Material distributions',
-          field: 'MaterialDistributions',
+          field: 'MaterialDistribution',
           updateble: true,
           type: 'number'
         },
         {
           name: 'Labor distributions',
-          field: 'LaborDistributions',
+          field: 'LaborDistribution',
           updateble: true,
           type: 'number'
-        },
-        {
-          name: 'Equipment distributions',
-          field: 'EquipmentDistributions',
-          updateble: true,
-          type: 'number'
-        },
-        {
-          name: 'Modified by',
-          field: 'ModifiedBy'
-        },
-        {
-          name: 'Modified date',
-          field: 'ModifiedDate'
         }
       ],
 

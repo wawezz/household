@@ -29,7 +29,7 @@ export const indirectCosts = {
       indirectCostsColumns: [
         {
           name: 'Id',
-          field: 'id'
+          field: 'Id'
         },
         {
           name: 'Item name',
@@ -84,14 +84,6 @@ export const indirectCosts = {
           field: 'QualityClass',
           updateble: true,
           type: 'number'
-        },
-        {
-          name: 'Modified by',
-          field: 'ModifiedBy'
-        },
-        {
-          name: 'Modified date',
-          field: 'ModifiedDate'
         }
       ],
 
