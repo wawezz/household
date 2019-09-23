@@ -23,13 +23,11 @@
           <b>{{directCostsTotalCount}}</b>
         </div>
         <base-button
-          href="#"
           data-toggle="modal"
           data-target="#addDirectCost"
           @click.prevent="directCostAddModalVisible = true"
           :type="'primary'"
-        >Add new
-        </base-button>
+        >Add new</base-button>
       </div>
       <div class="table">
         <active-table
@@ -56,168 +54,129 @@
       :centered="false"
       :show-close="true"
     >
-      <div>
-        <h2 class="direct-cost-h2">Add direct cost</h2>
-        <hr>
-      </div>
-      <div>
-        <div>
-          <table>
-            <tr>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Item id</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Item id"
-                    v-model="modalDirectCosts.id"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Group id</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Group id"
-                    v-model="modalDirectCosts.groupId"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Item name</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Item name"
-                    v-model="modalDirectCosts.itemName"
-                  />
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Material constant</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Material constant"
-                    v-model="modalDirectCosts.materialConstant"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Labour constant</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Labour constant"
-                    v-model="modalDirectCosts.labourConstant"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Eqiup constant</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Equip constant"
-                    v-model="modalDirectCosts.equipConstant"
-                  />
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Total constant</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Total constant"
-                    v-model="modalDirectCosts.totalConstant"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Sort order</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Sort order"
-                    v-model="modalDirectCosts.sortOrder"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Quality class</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Quality class"
-                    v-model="modalDirectCosts.qualityClass"
-                  />
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <div class="direct-head-field">
-                  <input
-                    class="direct-head-checkbox"
-                    type="checkbox"
-                    v-model="modalDirectCosts.masonry"
-                  />
-                  <span class="direct-head">Masonry</span>
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Modified by</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Modified by"
-                    v-model="modalDirectCosts.modifiedBy"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="direct-head-field">
-                  <span class="direct-head">Modified Date</span>
-                  <input
-                    class="form-control direct-head-input"
-                    type="text"
-                    placeholder="Modified date"
-                    v-model="modalDirectCosts.modifiedDate"
-                  />
-                </div>
-              </th>
-            </tr>
-          </table>
-        </div>
+      <h2 class="modalHeader">Add direct cost</h2>
+      <div class="row mt-3">
+        <div class="col-4">
+          <div class="mb-1">
+            <b>Item id</b>
+          </div>
 
-        <div class="kt-login__actions">
-          <button
-            class="kt-spinner
-            kt-spinner--right
-             kt-spinner--md
-             btn btn-primary
-             btn-elevate
-             kt-login__btn-primary
-             direct-cost-btn"
-             id="kt_login_signin_submit"
-             @click = "addDirectCosts"
-          >Add
-          </button>
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Item id"
+            v-model="directCost.ItemID"
+          />
+        </div>
+        <div class="col-4">
+          <div class="mb-1">
+            <b>Item name</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="text"
+            placeholder="Item name"
+            v-model="directCost.ItemName"
+          />
+        </div>
+        <div class="col-4">
+          <div class="mb-1">
+            <b>Group id</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="text"
+            placeholder="Group id"
+            v-model="directCost.GroupID"
+          />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <div class="mb-1">
+            <b>Material constant</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Material constant"
+            v-model="directCost.MaterialConstant"
+          />
+        </div>
+        <div class="col-4">
+          <div class="mb-1">
+            <b>Labour constant</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Labour constant"
+            v-model="directCost.LabourConstant"
+          />
+        </div>
+        <div class="col-4">
+          <div class="mb-1">
+            <b>Eqiup constant</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Equip constant"
+            v-model="directCost.EquipConstant"
+          />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-3">
+          <div class="mb-1">
+            <b>Total constant</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Total constant"
+            v-model="directCost.TotalConstant"
+          />
+        </div>
+        <div class="col-3">
+          <div class="mb-1">
+            <b>Sort order</b>
+          </div>
+
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Sort order"
+            v-model="directCost.SortOrder"
+          />
+        </div>
+        <div class="col-3">
+          <div class="mb-1">
+            <b>Quality class</b>
+          </div>
+          <input
+            class="form-control direct-head-input"
+            type="number"
+            placeholder="Quality class"
+            v-model="directCost.QualityClass"
+          />
+        </div>
+        <div class="col-3">
+          <div class="mb-1">
+            <b>Masonry</b>
+          </div>
+          <input type="checkbox" class="mt-3" v-model="directCost.Masonry" />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12">
+          <base-button @click.prevent="addDirectCosts" :type="'primary'">Add</base-button>
         </div>
       </div>
     </modal>
@@ -225,11 +184,11 @@
 </template>
 
 <script>
-  import {ActiveTable} from "@/components";
-  import {Notifications} from "@/components";
-  import {Modal} from "@/components";
-  import {directCosts} from "../mixins/directCosts";
-  import {main} from "./../mixins/main";
+  import { ActiveTable } from "@/components";
+  import { Notifications } from "@/components";
+  import { Modal } from "@/components";
+  import { directCosts } from "../mixins/directCosts";
+  import { main } from "./../mixins/main";
   import authGuard from "../guards/auth.guard";
 
   export default {
@@ -255,19 +214,4 @@
 </script>
 
 <style>
-  .direct-head {
-    margin-left: 10px;
-  }
-  .direct-head-field {
-    margin: 5px;
-  }
-  .direct-head-checkbox {
-    margin-left: 15px;
-  }
-  .direct-cost-btn {
-    margin-left: 15px;
-  }
-  .direct-cost-h2 {
-    padding-left: 20px;
-  }
 </style>

@@ -134,19 +134,20 @@ export const directCosts = {
           condition: '='
         }
       },
-      modalDirectCosts: {
-        id: '',
-        groupId: '',
-        itemName: '',
-        materialConstant: '',
-        labourConstant: '',
-        equipConstant: '',
-        totalConstant: '',
-        sortOrder: '',
-        qualityClass: '',
-        masonry: false,
-        modifiedBy: '',
-        modifiedDate: ''
+      directCost: {
+        Id: '',
+        GroupID: null,
+        ItemName: null,
+        MaterialConstant: null,
+        LabourConstant: null,
+        EquipConstant: null,
+        TotalConstant: null,
+        ItemID: 0,
+        SortOrder: 0,
+        QualityClass: null,
+        Masonry: false,
+        ModifiedBy: null,
+        ModifiedDate: null
       }
     }
   },
@@ -310,13 +311,11 @@ export const directCosts = {
     addDirectCosts() {
       this.directCostAddModalVisible = false;
 
-      console.log("object from Modal:",this.modalDirectCosts);
-
       axios({
-        method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http:// 209.163.136.235:3010/DirectCosts/add",
-        data: this.modalDirectCosts,
-      })
+          method: "post",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/add",
+          data: this.directCost,
+        })
         .then(() => {
           this.directCostsResponse.message = 'New data accepted succesfully';
           this.directCostsResponse.timeoutID =
@@ -324,18 +323,7 @@ export const directCosts = {
               this.directCostsResponse.message = null
             }, 3000);
           this.directCostsInProgress = false;
-          this.modalDirectCosts.id = '';
-          this.modalDirectCosts.groupId = '';
-          this.modalDirectCosts.itemName = '';
-          this.modalDirectCosts.materialConstant = '';
-          this.modalDirectCosts.labourConstant = '';
-          this.modalDirectCosts.equipConstant = '';
-          this.modalDirectCosts.totalConstant = '';
-          this.modalDirectCosts.sortOrder = '';
-          this.modalDirectCosts.qualityClass = '';
-          this.modalDirectCosts.masonry = false;
-          this.modalDirectCosts.modifiedDate = '';
-          this.modalDirectCosts.modifiedBy = '';
+          this.getDirectCosts();
         })
         .catch(e => {
           this.directCostsError.message = e.response.data;
