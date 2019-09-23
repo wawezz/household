@@ -22,6 +22,13 @@
           Total:
           <b>{{directCostsTotalCount}}</b>
         </div>
+        <base-button
+          href="#"
+          data-toggle="modal"
+          data-target="#addDirectCost"
+          @click.prevent="directCostAddModalVisible = true"
+          :type="'primary'"
+        >Add new</base-button>
       </div>
       <div class="table">
         <active-table
@@ -41,12 +48,20 @@
       </div>
       <notifications :response="directCostsResponse" :error="directCostsError"></notifications>
     </div>
+    <modal
+      modalClasses="modal-lg"
+      :show.sync="directCostAddModalVisible"
+      id="addDirectCost"
+      :centered="false"
+      :show-close="true"
+    >test</modal>
   </div>
 </template>
 
 <script>
   import { ActiveTable } from "@/components";
   import { Notifications } from "@/components";
+  import { Modal } from "@/components";
   import { directCosts } from "../mixins/directCosts";
   import { main } from "./../mixins/main";
   import authGuard from "../guards/auth.guard";
@@ -55,11 +70,14 @@
     name: "directCosts",
     beforeRouteEnter: authGuard,
     data() {
-      return {};
+      return {
+        directCostAddModalVisible: false
+      };
     },
     components: {
       ActiveTable,
-      Notifications
+      Notifications,
+      Modal
     },
 
     mounted() {
