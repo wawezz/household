@@ -66,7 +66,7 @@
                 v-if="column.type === 'email'"
                 :href="'mail-to:' + item[column.field||column.name]"
               >{{item[column.field||column.name]}}</a>
-              <span v-if="column.type === 'date'">{{item[column.field||column.name].date | date}}</span>
+              <span v-if="column.type === 'date'">{{item[column.field||column.name] | dateTime}}</span>
               <span
                 v-if="column.type === 'select' || column.type === 'text' || column.type === 'number' || !column.type"
               >{{item[column.field||column.name] || item[column.field||column.name] != 'null'?item[column.field||column.name]:(column.default || 'null')}}</span>

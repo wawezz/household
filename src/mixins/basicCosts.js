@@ -76,7 +76,8 @@ export const basicCosts = {
                 },
                 {
                     name: 'Modified date',
-                    field: 'ModifiedDate'
+                    field: 'ModifiedDate',
+                    type: 'date'
                 }
             ],
             basicCostsFilterObject: {

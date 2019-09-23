@@ -60,7 +60,8 @@ export const cityConstants = {
         },
         {
           name: 'Modified date',
-          field: 'ModifiedDate'
+          field: 'ModifiedDate',
+          type: 'date'
         }
       ],
       cityConstantsFilterObject: {
