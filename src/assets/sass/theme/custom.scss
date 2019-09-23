@@ -12,7 +12,7 @@
     justify-content: space-between;
 }
 
-.houseFilterSelect {
+.activeFilterSelect {
     height: 21px;
 }
 
@@ -22,4 +22,10 @@
 
 .pointer {
     cursor: pointer;
+}
+
+.full-table {
+    input {
+        width: 100%;
+    }
 }

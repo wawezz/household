@@ -26,8 +26,7 @@ export const directCosts = {
       responseSuccessful: false,
       directCostsFilter: '[]',
       directCostsSort: '[]',
-      directCostsColumns: [
-        {
+      directCostsColumns: [{
           name: 'Id',
           field: 'id'
         },
@@ -38,25 +37,25 @@ export const directCosts = {
           type: 'text',
         },
         {
-          name: 'Material constant',
+          name: 'Material',
           field: 'MaterialConstant',
           updateble: true,
           type: 'number',
         },
         {
-          name: 'Labour constant',
+          name: 'Labour',
           field: 'LabourConstant',
           updateble: true,
           type: 'number',
         },
         {
-          name: 'Equip constant',
+          name: 'Equip',
           field: 'EquipConstant',
           updateble: true,
           type: 'number',
         },
         {
-          name: 'Total constant',
+          name: 'Total',
           field: 'TotalConstant',
           updateble: true,
           type: 'number',

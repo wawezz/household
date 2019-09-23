@@ -8,7 +8,7 @@
         <div>
           Number of displaying pages:
           <select
-            class="demolitionConstantsTable"
+            class="ml-2"
             @change="getDemolitionConstants"
             v-model="demolitionConstantsOptions.limit"
           >
@@ -18,25 +18,24 @@
             <option value="150">150</option>
           </select>
         </div>
-
-        <div class="table">
-          <active-table
-            :columns="demolitionConstantsColumns"
-            :filters="demolitionConstantsFilterObject"
-            :data="originDemolitionConstants"
-            :updatebleData="demolitionConstants"
-            :sort="demolitionConstantsSort"
-            :filterFunction="filterDemolitionConstants"
-            :sortBy="sortDemolitionConstantsBy"
-            :total="demolitionConstantsTotalCount"
-            :current="curDemolitionConstantsPage"
-            :size="demolitionConstantsOptions.limit"
-            :prefix="'/demolition-constants/'"
-            :update="acceptDemolitionConstantsChanges"
-          ></active-table>
-        </div>
-        <notifications :response="demolitionConstantsResponse" :error="demolitionConstantsError"></notifications>
       </div>
+      <div class="table">
+        <active-table
+          :columns="demolitionConstantsColumns"
+          :filters="demolitionConstantsFilterObject"
+          :data="originDemolitionConstants"
+          :updatebleData="demolitionConstants"
+          :sort="demolitionConstantsSort"
+          :filterFunction="filterDemolitionConstants"
+          :sortBy="sortDemolitionConstantsBy"
+          :total="demolitionConstantsTotalCount"
+          :current="curDemolitionConstantsPage"
+          :size="demolitionConstantsOptions.limit"
+          :prefix="'/demolition-constants/'"
+          :update="acceptDemolitionConstantsChanges"
+        ></active-table>
+      </div>
+      <notifications :response="demolitionConstantsResponse" :error="demolitionConstantsError"></notifications>
     </div>
   </div>
 </template>
@@ -63,12 +62,9 @@
       this.getDemolitionConstants();
     },
 
-    mixins: [main,demolitionConstants]
+    mixins: [main, demolitionConstants]
   };
 </script>
 
-<style scoped>
-  .demolitionConstantsTable {
-    margin-left: 8px;
-  }
+<style>
 </style>

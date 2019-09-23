@@ -8,7 +8,7 @@
         <div>
           Number of displaying pages:
           <select
-            class="costDistributionsTable"
+            class="ml-2"
             @change="getCostDistributions"
             v-model="costDistributionsOptions.limit"
           >
@@ -18,25 +18,24 @@
             <option value="150">150</option>
           </select>
         </div>
-
-        <div class="table">
-          <active-table
-            :columns="costDistributionsColumns"
-            :filters="costDistributionsFilterObject"
-            :data="originCostDistributions"
-            :updatebleData="costDistributions"
-            :sort="costDistributionsort"
-            :filterFunction="filterCostDistributions"
-            :sortBy="sortCostDistributionsBy"
-            :total="costDistributionsTotalCount"
-            :current="curCostDistributionsPage"
-            :size="costDistributionsOptions.limit"
-            :prefix="'/cost-distributions/'"
-            :update="acceptCostDistributionsChanges"
-          ></active-table>
-        </div>
-        <notifications :response="costDistributionsResponse" :error="costDistributionsError"></notifications>
       </div>
+      <div class="table">
+        <active-table
+          :columns="costDistributionsColumns"
+          :filters="costDistributionsFilterObject"
+          :data="originCostDistributions"
+          :updatebleData="costDistributions"
+          :sort="costDistributionsort"
+          :filterFunction="filterCostDistributions"
+          :sortBy="sortCostDistributionsBy"
+          :total="costDistributionsTotalCount"
+          :current="curCostDistributionsPage"
+          :size="costDistributionsOptions.limit"
+          :prefix="'/cost-distributions/'"
+          :update="acceptCostDistributionsChanges"
+        ></active-table>
+      </div>
+      <notifications :response="costDistributionsResponse" :error="costDistributionsError"></notifications>
     </div>
   </div>
 </template>
@@ -67,8 +66,5 @@
   };
 </script>
 
-<style scoped>
-  .costDistributionsTable {
-    margin-left: 8px;
-  }
+<style>
 </style>

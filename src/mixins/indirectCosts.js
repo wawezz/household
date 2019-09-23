@@ -26,8 +26,7 @@ export const indirectCosts = {
       responseSuccessful: false,
       indirectCostsFilter: '[]',
       indirectCostsSort: '[]',
-      indirectCostsColumns: [
-        {
+      indirectCostsColumns: [{
           name: 'Id',
           field: 'Id'
         },
@@ -38,43 +37,43 @@ export const indirectCosts = {
           type: 'text'
         },
         {
-          name: 'Material constant',
+          name: 'Material',
           field: 'MaterialConstant',
           updateble: true,
           type: 'number'
         },
         {
-          name: 'Labour constant',
+          name: 'Labour',
           field: 'LabourConstant',
           updateble: true,
           type: 'number'
         },
         {
-          name: 'Equip constant',
+          name: 'Equip',
           field: 'EquipConstant',
           updateble: true,
           type: 'number'
         },
         {
-          name: 'Total constant',
+          name: 'Total',
           field: 'TotalConstant',
           updateble: true,
           type: 'number'
         },
         {
-          name: 'Include in subtotal',
+          name: 'Subtotal',
           field: 'IncludeInSubtotal',
           updateble: true,
           type: 'checkbox'
         },
         {
-          name: 'Is enabled',
+          name: 'Enabled',
           field: 'IsEnabled',
           updateble: true,
           type: 'checkbox'
         },
         {
-          name: 'Sort order',
+          name: 'Sort',
           field: 'SortOrder',
           updateble: true,
           type: 'number'
@@ -224,9 +223,9 @@ export const indirectCosts = {
       const filter = this.indirectCostsFilter !== '[]' ? JSON.stringify(this.indirectCostsFilter) : this.indirectCostsFilter;
       const sort = this.indirectCostsSort !== '[]' ? JSON.stringify(this.indirectCostsSort) : this.indirectCostsSort;
       axios({
-        method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/IndirectCosts/?skip=${skip}&take=${this.indirectCostsOptions.limit}&sort=${sort}&filter=${filter}`
-      })
+          method: "get",
+          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/IndirectCosts/?skip=${skip}&take=${this.indirectCostsOptions.limit}&sort=${sort}&filter=${filter}`
+        })
         .then(obj => {
           this.indirectCosts = obj.data.data;
           this.originIndirectCosts = JSON.parse(JSON.stringify(obj.data.data));
@@ -262,10 +261,10 @@ export const indirectCosts = {
       }
 
       axios({
-        method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/IndirectCosts/save",
-        data: changedArray,
-      })
+          method: "post",
+          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/IndirectCosts/save",
+          data: changedArray,
+        })
         .then(() => {
           this.indirectCostsResponse.message = 'New data accepted succesfully';
           this.indirectCostsResponse.timeoutID =

@@ -8,7 +8,7 @@
         <div>
           Number of displaying pages:
           <select
-            class="indirectCostsTable"
+            class="ml-2"
             @change="getIndirectCosts"
             v-model="indirectCostsOptions.limit"
           >
@@ -18,25 +18,24 @@
             <option value="150">150</option>
           </select>
         </div>
-
-        <div class="table">
-          <active-table
-            :columns="indirectCostsColumns"
-            :filters="indirectCostsFilterObject"
-            :data="originIndirectCosts"
-            :updatebleData="indirectCosts"
-            :sort="indirectCostsSort"
-            :filterFunction="filterIndirectCosts"
-            :sortBy="sortIndirectCostsBy"
-            :total="indirectCostsTotalCount"
-            :current="curIndirectCostsPage"
-            :size="indirectCostsOptions.limit"
-            :prefix="'/indirect-costs/'"
-            :update="acceptIndirectCostsChanges"
-          ></active-table>
-        </div>
-        <notifications :response="indirectCostsResponse" :error="indirectCostsError"></notifications>
       </div>
+      <div class="table">
+        <active-table
+          :columns="indirectCostsColumns"
+          :filters="indirectCostsFilterObject"
+          :data="originIndirectCosts"
+          :updatebleData="indirectCosts"
+          :sort="indirectCostsSort"
+          :filterFunction="filterIndirectCosts"
+          :sortBy="sortIndirectCostsBy"
+          :total="indirectCostsTotalCount"
+          :current="curIndirectCostsPage"
+          :size="indirectCostsOptions.limit"
+          :prefix="'/indirect-costs/'"
+          :update="acceptIndirectCostsChanges"
+        ></active-table>
+      </div>
+      <notifications :response="indirectCostsResponse" :error="indirectCostsError"></notifications>
     </div>
   </div>
 </template>
@@ -63,12 +62,9 @@
       this.getIndirectCosts();
     },
 
-    mixins: [main,indirectCosts]
-  }
+    mixins: [main, indirectCosts]
+  };
 </script>
 
-<style scoped>
- .indirectCostsTable {
-   margin-left: 8px;
- }
+<style>
 </style>

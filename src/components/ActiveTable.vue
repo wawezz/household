@@ -18,7 +18,7 @@
               <select
                 v-if="filters[(column.field || column.name)].type === 'select'"
                 v-model="filters[(column.field || column.name)].value"
-                class="ml-2 houseFilterSelect"
+                class="ml-2 activeFilterSelect"
                 @change="filterFunction"
               >
                 <option selected value></option>
@@ -41,13 +41,20 @@
               <select
                 v-if="column.type === 'select'"
                 v-model="updatebleData[n][column.field || column.name]"
-                class="ml-2 houseFilterSelect"
+                class="ml-2 activeFilterSelect"
               >
                 <option
                   v-for="i in range(column.options.min, column.options.max, column.options.step)"
                   :key="i"
                 >{{i}}</option>
               </select>
+              <input
+                v-if="column.type === 'checkbox'"
+                type="checkbox"
+                :name="(column.field || column.name)"
+                v-model="updatebleData[n][column.field || column.name]"
+                :checked="updatebleData[n][column.field || column.name]"
+              />
             </div>
             <div v-if="!column.updateble">
               <router-link

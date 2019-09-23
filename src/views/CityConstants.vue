@@ -1,14 +1,14 @@
 <template>
   <div class="cityConstants">
-    <div v-if="this.cityConstantsLoading">Loading information. Please wait...</div>
+    <div v-if="cityConstantsLoading">Loading information. Please wait...</div>
 
-    <div v-if="!this.cityConstantsLoading">
+    <div v-if="!cityConstantsLoading">
       <notifications :response="cityConstantsResponse" :error="cityConstantsError"></notifications>
       <div class="d-f-space">
         <div>
           Number of displaying pages:
           <select
-            class="cityConstantsTable"
+            class="ml-2"
             @change="getCityConstants"
             v-model="cityConstantsOptions.limit"
           >
@@ -18,25 +18,24 @@
             <option value="150">150</option>
           </select>
         </div>
-
-        <div class="table">
-          <active-table
-            :columns="cityConstantsColumns"
-            :filters="cityConstantsFilterObject"
-            :data="originCityConstants"
-            :updatebleData="cityConstants"
-            :sort="cityConstantsSort"
-            :filterFunction="filterCityConstants"
-            :sortBy="sortCityConstantsBy"
-            :total="cityConstantsTotalCount"
-            :current="curCityConstantsPage"
-            :size="cityConstantsOptions.limit"
-            :prefix="'/city-constants/'"
-            :update="acceptCityConstantsChanges"
-          ></active-table>
-        </div>
-        <notifications :response="cityConstantsResponse" :error="cityConstantsError"></notifications>
       </div>
+      <div class="table">
+        <active-table
+          :columns="cityConstantsColumns"
+          :filters="cityConstantsFilterObject"
+          :data="originCityConstants"
+          :updatebleData="cityConstants"
+          :sort="cityConstantsSort"
+          :filterFunction="filterCityConstants"
+          :sortBy="sortCityConstantsBy"
+          :total="cityConstantsTotalCount"
+          :current="curCityConstantsPage"
+          :size="cityConstantsOptions.limit"
+          :prefix="'/city-constants/'"
+          :update="acceptCityConstantsChanges"
+        ></active-table>
+      </div>
+      <notifications :response="cityConstantsResponse" :error="cityConstantsError"></notifications>
     </div>
   </div>
 </template>
@@ -62,12 +61,9 @@
       this.getCityConstants();
     },
 
-    mixins: [main,cityConstants]
+    mixins: [main, cityConstants]
   };
 </script>
 
-<style scoped>
-  .cityConstantsTable {
-    margin-left: 8px;
-  }
+<style>
 </style>

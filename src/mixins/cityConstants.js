@@ -26,8 +26,7 @@ export const cityConstants = {
       responseSuccessful: false,
       cityConstantsFilter: '[]',
       cityConstantsSort: '[]',
-      cityConstantsColumns: [
-        {
+      cityConstantsColumns: [{
           name: 'Id',
           field: 'Id'
         },
@@ -38,13 +37,13 @@ export const cityConstants = {
           type: 'text'
         },
         {
-          name: 'Material constant',
+          name: 'Material',
           field: 'MaterialConstant',
           updateble: true,
           type: 'number'
         },
         {
-          name: 'Equip constant',
+          name: 'Equip',
           field: 'EquipConstant',
           updateble: true,
           type: 'number'

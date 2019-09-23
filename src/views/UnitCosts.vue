@@ -8,7 +8,7 @@
         <div>
           Number of displaying pages:
           <select
-            class="unitCostsTable"
+            class="ml-2"
             @change="getUnitCosts"
             v-model="unitCostsOptions.limit"
           >
@@ -18,25 +18,24 @@
             <option value="150">150</option>
           </select>
         </div>
-
-        <div class="table">
-          <active-table
-            :columns="unitCostsColumns"
-            :filters="unitCostsFilterObject"
-            :data="originUnitCosts"
-            :updatebleData="unitCosts"
-            :sort="unitCostsSort"
-            :filterFunction="filterUnitCosts"
-            :sortBy="sortUnitCostsBy"
-            :total="unitCostsTotalCount"
-            :current="curUnitCostsPage"
-            :size="unitCostsOptions.limit"
-            :prefix="'/unit-costs/'"
-            :update="acceptUnitCostsChanges"
-          ></active-table>
-        </div>
-        <notifications :response="unitCostsResponse" :error="unitCostsError"></notifications>
       </div>
+      <div class="table">
+        <active-table
+          :columns="unitCostsColumns"
+          :filters="unitCostsFilterObject"
+          :data="originUnitCosts"
+          :updatebleData="unitCosts"
+          :sort="unitCostsSort"
+          :filterFunction="filterUnitCosts"
+          :sortBy="sortUnitCostsBy"
+          :total="unitCostsTotalCount"
+          :current="curUnitCostsPage"
+          :size="unitCostsOptions.limit"
+          :prefix="'/unit-costs/'"
+          :update="acceptUnitCostsChanges"
+        ></active-table>
+      </div>
+      <notifications :response="unitCostsResponse" :error="unitCostsError"></notifications>
     </div>
   </div>
 </template>
@@ -47,7 +46,6 @@
   import { unitCosts } from "../mixins/unitCosts";
   import { main } from "./../mixins/main";
   import authGuard from "../guards/auth.guard";
-
 
   export default {
     name: "unitCosts",
@@ -64,12 +62,9 @@
       this.getUnitCosts();
     },
 
-    mixins: [main,unitCosts]
+    mixins: [main, unitCosts]
   };
 </script>
 
-<style scoped>
-  .unitCostsTable {
-    margin-left: 8px;
-  }
+<style>
 </style>

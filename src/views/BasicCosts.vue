@@ -8,7 +8,7 @@
         <div>
           Number of displaying pages:
           <select
-            class="basicCostsTable"
+            class="ml-2"
             @change="getBasicCosts"
             v-model="basicCostsOptions.limit"
           >
@@ -90,7 +90,4 @@
 </script>
 
 <style>
-  .basicCostsTable {
-    margin-left: 8px;
-  }
 </style>
