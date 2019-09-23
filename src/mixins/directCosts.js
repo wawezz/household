@@ -133,6 +133,20 @@ export const directCosts = {
           value: '',
           condition: '='
         }
+      },
+      modalDirectCosts: {
+        id: '',
+        groupId: '',
+        itemName: '',
+        materialConstant: '',
+        labourConstant: '',
+        equipConstant: '',
+        totalConstant: '',
+        sortOrder: '',
+        qualityClass: '',
+        masonry: false,
+        modifiedBy: '',
+        modifiedDate: ''
       }
     }
   },
@@ -241,9 +255,6 @@ export const directCosts = {
           this.originDirectCosts = JSON.parse(JSON.stringify(obj.data.data));
           this.directCostsTotalCount = parseInt(obj.data.count);
           this.directCostsLoading = false;
-
-          console.log("dir", this.directCosts);
-
         })
         .catch(error => {
           console.log(error);
@@ -285,6 +296,46 @@ export const directCosts = {
               this.directCostsResponse.message = null
             }, 3000);
           this.directCostsInProgress = false;
+        })
+        .catch(e => {
+          this.directCostsError.message = e.response.data;
+          this.directCostsError.timeoutID =
+            setTimeout(() => {
+              this.directCostsError.message = null
+            }, 5000);
+          this.directCostsInProgress = false;
+        })
+    },
+
+    addDirectCosts() {
+      this.directCostAddModalVisible = false;
+
+      console.log("object from Modal:",this.modalDirectCosts);
+
+      axios({
+        method: "post",
+        url: "http://cors-anywhere.herokuapp.com/http:// 209.163.136.235:3010/DirectCosts/add",
+        data: this.modalDirectCosts,
+      })
+        .then(() => {
+          this.directCostsResponse.message = 'New data accepted succesfully';
+          this.directCostsResponse.timeoutID =
+            setTimeout(() => {
+              this.directCostsResponse.message = null
+            }, 3000);
+          this.directCostsInProgress = false;
+          this.modalDirectCosts.id = '';
+          this.modalDirectCosts.groupId = '';
+          this.modalDirectCosts.itemName = '';
+          this.modalDirectCosts.materialConstant = '';
+          this.modalDirectCosts.labourConstant = '';
+          this.modalDirectCosts.equipConstant = '';
+          this.modalDirectCosts.totalConstant = '';
+          this.modalDirectCosts.sortOrder = '';
+          this.modalDirectCosts.qualityClass = '';
+          this.modalDirectCosts.masonry = false;
+          this.modalDirectCosts.modifiedDate = '';
+          this.modalDirectCosts.modifiedBy = '';
         })
         .catch(e => {
           this.directCostsError.message = e.response.data;
