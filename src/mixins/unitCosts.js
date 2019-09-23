@@ -29,13 +29,7 @@ export const unitCosts = {
       unitCostsColumns: [
         {
           name: 'Id',
-          field: 'id'
-        },
-        {
-          name: 'Home Type',
-          field: 'HomeType',
-          updateble: true,
-          type: 'text'
+          field: 'Id'
         },
         {
           name: 'Item Name',
@@ -66,14 +60,6 @@ export const unitCosts = {
           field: 'EquipmentCostPerUnit',
           updateble: true,
           type: 'number'
-        },
-        {
-          name: 'Modified by',
-          field: 'ModifiedBy',
-        },
-        {
-          name: 'Modified date',
-          field: 'ModifiedDate',
         }
       ],
 

@@ -29,7 +29,7 @@ export const cityConstants = {
       cityConstantsColumns: [
         {
           name: 'Id',
-          field: 'id'
+          field: 'Id'
         },
         {
           name: 'City',
@@ -44,12 +44,6 @@ export const cityConstants = {
           type: 'number'
         },
         {
-          name: 'Labour constant',
-          field: 'LabourConstant',
-          updateble: true,
-          type: 'number'
-        },
-        {
           name: 'Equip constant',
           field: 'EquipConstant',
           updateble: true,
@@ -57,9 +51,9 @@ export const cityConstants = {
         },
         {
           name: 'State id',
-          field: 'StateId',
+          field: 'State',
           updateble: true,
-          type: 'number'
+          type: 'text'
         },
         {
           name: 'Modified by',
