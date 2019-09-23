@@ -27,8 +27,20 @@ export const directCosts = {
       directCostsFilter: '[]',
       directCostsSort: '[]',
       directCostsColumns: [{
-          name: 'Id',
-          field: 'id'
+        name: 'Id',
+        field: 'Id'
+      },
+        {
+          name: 'Item id',
+          field: 'ItemID',
+          updateble: true,
+          type: 'text',
+        },
+        {
+          name: 'Group id',
+          field: 'GroupID',
+          updateble: true,
+          type: 'text',
         },
         {
           name: 'Item name',
@@ -220,14 +232,17 @@ export const directCosts = {
       const filter = this.directCostsFilter !== '[]' ? JSON.stringify(this.directCostsFilter) : this.directCostsFilter;
       const sort = this.directCostsSort !== '[]' ? JSON.stringify(this.directCostsSort) : this.directCostsSort;
       axios({
-          method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/?skip=${skip}&take=${this.directCostsOptions.limit}&sort=${sort}&filter=${filter}`
-        })
+        method: "get",
+        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/?skip=${skip}&take=${this.directCostsOptions.limit}&sort=${sort}&filter=${filter}`
+      })
         .then(obj => {
           this.directCosts = obj.data.data;
           this.originDirectCosts = JSON.parse(JSON.stringify(obj.data.data));
           this.directCostsTotalCount = parseInt(obj.data.count);
           this.directCostsLoading = false;
+
+          console.log("dir",this.directCosts);
+
         })
         .catch(error => {
           console.log(error);
@@ -258,10 +273,10 @@ export const directCosts = {
       }
 
       axios({
-          method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/save",
-          data: changedArray,
-        })
+        method: "post",
+        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/save",
+        data: changedArray,
+      })
         .then(() => {
           this.directCostsResponse.message = 'New data accepted succesfully';
           this.directCostsResponse.timeoutID =
