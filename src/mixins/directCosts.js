@@ -32,13 +32,13 @@ export const directCosts = {
       },
         {
           name: 'Item id',
-          field: 'ItemId',
+          field: 'ItemID',
           updateble: true,
           type: 'text',
         },
         {
           name: 'Group id',
-          field: 'GroupId',
+          field: 'GroupID',
           updateble: true,
           type: 'text',
         },
@@ -240,6 +240,9 @@ export const directCosts = {
           this.originDirectCosts = JSON.parse(JSON.stringify(obj.data.data));
           this.directCostsTotalCount = parseInt(obj.data.count);
           this.directCostsLoading = false;
+
+          console.log("dir",this.directCosts);
+
         })
         .catch(error => {
           console.log(error);
