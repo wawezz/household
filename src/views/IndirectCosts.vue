@@ -1,8 +1,8 @@
 <template>
   <div class="indirectCosts">
-    <div v-if="this.indirectCostsLoading">Loading information. Please wait...</div>
+    <div v-if="indirectCostsLoading">Loading information. Please wait...</div>
 
-    <div v-if="!this.indirectCostsLoading">
+    <div v-if="!indirectCostsLoading">
       <notifications :response="indirectCostsResponse" :error="indirectCostsError"></notifications>
       <div class="d-f-space">
         <div>
@@ -17,6 +17,10 @@
             <option value="100">100</option>
             <option value="150">150</option>
           </select>
+        </div>
+        <div>
+          Total:
+          <b>{{indirectCostsTotalCount}}</b>
         </div>
       </div>
       <div class="table">

@@ -1,8 +1,8 @@
 <template>
   <div class="unitCosts">
-    <div v-if="this.unitCostsLoading">Loading information. Please wait...</div>
+    <div v-if="unitCostsLoading">Loading information. Please wait...</div>
 
-    <div v-if="!this.unitCostsLoading">
+    <div v-if="!unitCostsLoading">
       <notifications :response="unitCostsResponse" :error="unitCostsError"></notifications>
       <div class="d-f-space">
         <div>
@@ -17,6 +17,10 @@
             <option value="100">100</option>
             <option value="150">150</option>
           </select>
+        </div>
+        <div>
+          Total:
+          <b>{{unitCostsTotalCount}}</b>
         </div>
       </div>
       <div class="table">

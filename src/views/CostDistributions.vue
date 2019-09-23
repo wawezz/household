@@ -1,8 +1,8 @@
 <template>
   <div class="costDistributions">
-    <div v-if="this.costDistributionsLoading">Loading information. Please wait...</div>
+    <div v-if="costDistributionsLoading">Loading information. Please wait...</div>
 
-    <div v-if="!this.costDistributionsLoading">
+    <div v-if="!costDistributionsLoading">
       <notifications :response="costDistributionsResponse" :error="costDistributionsError"></notifications>
       <div class="d-f-space">
         <div>
@@ -17,6 +17,10 @@
             <option value="100">100</option>
             <option value="150">150</option>
           </select>
+        </div>
+        <div>
+          Total:
+          <b>{{costDistributionsTotalCount}}</b>
         </div>
       </div>
       <div class="table">

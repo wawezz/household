@@ -18,6 +18,10 @@
             <option value="150">150</option>
           </select>
         </div>
+        <div>
+          Total:
+          <b>{{cityConstantsTotalCount}}</b>
+        </div>
       </div>
       <div class="table">
         <active-table

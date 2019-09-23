@@ -1,8 +1,8 @@
 <template>
   <div class="demolitionConstants">
-    <div v-if="this.demolitionConstantsLoading">Loading information. Please wait...</div>
+    <div v-if="demolitionConstantsLoading">Loading information. Please wait...</div>
 
-    <div v-if="!this.demolitionConstantsLoading">
+    <div v-if="!demolitionConstantsLoading">
       <notifications :response="demolitionConstantsResponse" :error="demolitionConstantsError"></notifications>
       <div class="d-f-space">
         <div>
@@ -17,6 +17,10 @@
             <option value="100">100</option>
             <option value="150">150</option>
           </select>
+        </div>
+        <div>
+          Total:
+          <b>{{demolitionConstantsTotalCount}}</b>
         </div>
       </div>
       <div class="table">
