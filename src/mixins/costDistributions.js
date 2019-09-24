@@ -43,6 +43,12 @@ export const costDistributions = {
           type: 'text'
         },
         {
+          name: 'Line item name',
+          field: 'directCost',
+          render: (value) => value.ItemName,
+          disableSort: true
+        },
+        {
           name: 'Material distributions',
           field: 'MaterialDistribution',
           updateble: true,

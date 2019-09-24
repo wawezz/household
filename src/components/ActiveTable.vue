@@ -69,7 +69,7 @@
               <span v-if="column.type === 'date'">{{item[column.field||column.name] | dateTime}}</span>
               <span
                 v-if="column.type === 'select' || column.type === 'text' || column.type === 'number' || !column.type"
-              >{{item[column.field||column.name] || item[column.field||column.name] != 'null'?item[column.field||column.name]:(column.default || 'null')}}</span>
+              >{{renderCell(item, column)}}</span>
             </div>
           </td>
         </tr>
@@ -142,6 +142,21 @@
         return Array(len)
           .fill()
           .map((_, idx) => start + idx * step);
+      },
+      renderCell: (item, column) => {
+        let value;
+        // {{item[column.field||column.name] || item[column.field||column.name] != 'null'?item[column.field||column.name]:(column.default || 'null')}}
+        const { field, name, default: dflt } = column;
+
+        value =
+          item[field || name] || item[field || name] != "null"
+            ? item[field || name]
+            : dflt || "null";
+        if (column.render) {
+          value = column.render(value);
+        }
+
+        return value;
       }
     }
   };
