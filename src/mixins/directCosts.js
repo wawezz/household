@@ -249,7 +249,7 @@ export const directCosts = {
       const sort = this.directCostsSort !== '[]' ? JSON.stringify(this.directCostsSort) : this.directCostsSort;
       axios({
           method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/?skip=${skip}&take=${this.directCostsOptions.limit}&sort=${sort}&filter=${filter}`
+          url: `https://nae-editor-api.azurewebsites.net:3010/DirectCosts/?skip=${skip}&take=${this.directCostsOptions.limit}&sort=${sort}&filter=${filter}`
         })
         .then(obj => {
           this.directCosts = obj.data.data;
@@ -287,7 +287,7 @@ export const directCosts = {
 
       axios({
           method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/save",
+          url: "https://nae-editor-api.azurewebsites.net:3010/DirectCosts/save",
           data: changedArray,
         })
         .then(() => {
@@ -313,7 +313,7 @@ export const directCosts = {
 
       axios({
           method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DirectCosts/add",
+          url: "https://nae-editor-api.azurewebsites.net:3010/DirectCosts/add",
           data: this.directCost,
         })
         .then(() => {

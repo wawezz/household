@@ -211,7 +211,7 @@ export const basicCosts = {
             const sort = this.basicCostsSort !== '[]' ? JSON.stringify(this.basicCostsSort) : this.basicCostsSort;
             axios({
                     method: "get",
-                    url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/?skip=${skip}&take=${this.basicCostsOptions.limit}&sort=${sort}&filter=${filter}`
+                    url: `https://nae-editor-api.azurewebsites.net:3010/BasicCosts/?skip=${skip}&take=${this.basicCostsOptions.limit}&sort=${sort}&filter=${filter}`
                 })
                 .then(obj => {
                     this.basicCosts = obj.data.data;
@@ -226,7 +226,7 @@ export const basicCosts = {
         updateCosts(action) {
             axios({
                     method: "get",
-                    url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/priceupdate?percent=${this.basicCostsCostPrecent}&action=${action}`
+                    url: `https://nae-editor-api.azurewebsites.net:3010/BasicCosts/priceupdate?percent=${this.basicCostsCostPrecent}&action=${action}`
                 })
                 .then((res) => {
                     if (res.data.raw.length) {
@@ -279,7 +279,7 @@ export const basicCosts = {
 
             axios({
                     method: "post",
-                    url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/BasicCosts/save",
+                    url: "https://nae-editor-api.azurewebsites.net:3010/BasicCosts/save",
                     data: changedArray,
                 })
                 .then(() => {

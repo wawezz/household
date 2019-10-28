@@ -190,7 +190,7 @@ export const unitCosts = {
       const sort = this.unitCostsSort !== '[]' ? JSON.stringify(this.unitCostsSort) : this.unitCostsSort;
       axios({
         method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/UnitCosts/?skip=${skip}&take=${this.unitCostsOptions.limit}&sort=${sort}&filter=${filter}`
+        url: `https://nae-editor-api.azurewebsites.net:3010/UnitCosts/?skip=${skip}&take=${this.unitCostsOptions.limit}&sort=${sort}&filter=${filter}`
       })
         .then(obj => {
           this.unitCosts = obj.data.data;
@@ -228,7 +228,7 @@ export const unitCosts = {
 
       axios({
         method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/UnitCosts/save",
+        url: "https://nae-editor-api.azurewebsites.net:3010/UnitCosts/save",
         data: changedArray,
       })
         .then(() => {

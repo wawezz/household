@@ -186,7 +186,7 @@ export const cityConstants = {
       const sort = this.cityConstantsSort !== '[]' ? JSON.stringify(this.cityConstantsSort) : this.cityConstantsSort;
       axios({
           method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CityConstants/?skip=${skip}&take=${this.cityConstantsOptions.limit}&sort=${sort}&filter=${filter}`
+          url: `https://nae-editor-api.azurewebsites.net:3010/CityConstants/?skip=${skip}&take=${this.cityConstantsOptions.limit}&sort=${sort}&filter=${filter}`
         })
         .then(obj => {
           this.cityConstants = obj.data.data;
@@ -224,7 +224,7 @@ export const cityConstants = {
 
       axios({
           method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CityConstants/save",
+          url: "https://nae-editor-api.azurewebsites.net:3010/CityConstants/save",
           data: changedArray,
         })
         .then(() => {

@@ -155,7 +155,7 @@ export const demolitionConstants = {
       const sort = this.demolitionConstantsSort !== '[]' ? JSON.stringify(this.demolitionConstantsSort) : this.demolitionConstantsSort;
       axios({
         method: "get",
-        url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DemolitionConstants/?skip=${skip}&take=${this.demolitionConstantsOptions.limit}&sort=${sort}&filter=${filter}`
+        url: `https://nae-editor-api.azurewebsites.net:3010/DemolitionConstants/?skip=${skip}&take=${this.demolitionConstantsOptions.limit}&sort=${sort}&filter=${filter}`
       })
         .then(obj => {
           this.demolitionConstants = obj.data.data;
@@ -193,7 +193,7 @@ export const demolitionConstants = {
 
       axios({
         method: "post",
-        url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/DemolitionConstants/save",
+        url: "https://nae-editor-api.azurewebsites.net:3010/DemolitionConstants/save",
         data: changedArray,
       })
         .then(() => {

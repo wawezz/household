@@ -184,7 +184,7 @@ export const costDistributions = {
       const sort = this.costDistributionsort !== '[]' ? JSON.stringify(this.costDistributionsort) : this.costDistributionsort;
       axios({
           method: "get",
-          url: `http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CostDistributions/?skip=${skip}&take=${this.costDistributionsOptions.limit}&sort=${sort}&filter=${filter}`
+          url: `https://nae-editor-api.azurewebsites.net:3010/CostDistributions/?skip=${skip}&take=${this.costDistributionsOptions.limit}&sort=${sort}&filter=${filter}`
         })
         .then(obj => {
           this.costDistributions = obj.data.data;
@@ -222,7 +222,7 @@ export const costDistributions = {
 
       axios({
           method: "post",
-          url: "http://cors-anywhere.herokuapp.com/http://209.163.136.235:3010/CostDistributions/save",
+          url: "https://nae-editor-api.azurewebsites.net:3010/CostDistributions/save",
           data: changedArray,
         })
         .then(() => {
